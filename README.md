@@ -22,3 +22,6 @@ Some results are shown via [Jupyter Notebook](https://jupyter.org/install), so i
 
 ## How to Use
 First, in the “simulations_one_cell” or “simulations_network” folder, run “nrnivmodl” in the terminal to compile the NEURON files. This must only be done once.
+
+# First Result
+![img](https://github.com/ConradBitt/hh_ring/blob/main/data/v0_batch0/v0_batch0_raster.png)
