@@ -52,10 +52,10 @@ cfg.allcells = ['sPY']#, 'sIN']#, 'sPYbr', 'sPYb', 'sPYr', 'sPY']
 #------------------------------------------------------------------------------
 # Start time:  2023-09-27 14:22:23.374192
 # 
-cfg.cellNumber = 200
+cfg.cellNumber = 1000
 cfg.gex = 0.0004 # default 0.0005
-cfg.n_neighbors = 20 #int(0.3 * cfg.cellNumber) # all conetions 
-cfg.amp = 0.1
+cfg.n_neighbors = 80 #int(0.3 * cfg.cellNumber) # all conetions 
+cfg.amp = 0.2
 cfg.synapse_delay = cfg.dt #0.05 #1 #0.01
 
 for cell in cfg.allcells:

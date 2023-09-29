@@ -164,5 +164,5 @@ cython_debug/
 
 # Folders Simulations
 sim/x86_64
-data/
+data/*.pkl
 
