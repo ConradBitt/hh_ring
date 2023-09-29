@@ -30,6 +30,7 @@ netpyne==1.0.3.1
 neurom==3.2.2
 NEURON==8.2.2
 numpy==1.24.2
+numba==0.58.0
 packaging==23.0
 pandas==1.5.3
 parso==0.8.3

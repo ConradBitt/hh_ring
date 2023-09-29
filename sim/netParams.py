@@ -97,10 +97,47 @@ netParams.synMechParams['AMPA'] = {'mod': 'Exp2Syn', 'tau1': 0.1, 'tau2': 5.0, '
 # Connectivity rules
 #------------------------------------------------------------------------------
 
+# netParams.connParams['EE'] = { 
+#     'preConds': {'pop': cfg.allpops}, 
+#     'postConds': {'pop': cfg.allpops},
+#     'synMech': 'AMPA', # ESynMech,
+#     'probability': 0.1, 
+#     'weight': cfg.gex, # 'delay': 'defaultDelay+dist_3D/propVelocity', 'synsPerConn': int(synperconnNumber[pre][post]+0.5)
+#     }    
+
+# # connect initial spikes
+# netParams.connParams['initialrandom'] = { 
+#     'preConds': {'pop': 'initialspikes'},
+#     'postConds': {'pop': cfg.allpops},
+#     'synMech': 'AMPA', # target synaptic mechanism
+#     'probability': 0.50, 
+#     'weight': 0.0001, 
+#     'delay': 0.05
+#     }  
+
+## Spatial disposition of neurons
+r = netParams.sizeX/2.0  # radius of circle
+dist_between_neurons = 2.0*r*np.sin(np.pi/cfg.cellNumber)
+radius_conns = cfg.n_neighbors * dist_between_neurons + 0.001
+
+prob = '(dist_2D<%s)' % (radius_conns)
+
+# print(dist_between_neurons,radius_conns,prob)
 netParams.connParams['EE'] = { 
-    'preConds': {'pop': cfg.allpops}, 
+    'preConds': {'pop': cfg.allpops},
     'postConds': {'pop': cfg.allpops},
-    'synMech': 'AMPA', # ESynMech,
-    'probability': 0.1, 
+    'synMech': 'AMPA', 
+    'probability': prob, 
+    'delay' : cfg.synapse_delay, # If omitted, defaults to netParams.defaultDelay = 1
     'weight': cfg.gex, # 'delay': 'defaultDelay+dist_3D/propVelocity', 'synsPerConn': int(synperconnNumber[pre][post]+0.5)
-    }    
+    }
+
+# connect initial spikes
+netParams.connParams['initialrandom'] = { 
+    'preConds': {'pop': 'initialspikes'},
+    'postConds': {'pop': cfg.allpops},
+    'synMech': 'AMPA', # target synaptic mechanism
+    'probability': 0.50, 
+    'weight': 0.0001, 
+    'delay': 0.05
+    }  

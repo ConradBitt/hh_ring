@@ -65,8 +65,8 @@ proc init() { local v_potassium, v_sodium
 
 
 	insert im		// M current 
-	taumax_im = 608  // 1000 ms
-	gkbar_im = 7.5e-5		// Diego's IM (copyrighted)
+	taumax_im = 1000  // 1000 ms
+	gkbar_im = 3.0e-5		// Diego's IM (copyrighted)
 
 //	insert iahp
 //	alpha_iahp = 1.25e9

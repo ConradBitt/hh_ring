@@ -18,6 +18,8 @@ gex = np.round(np.arange(0.001,1.2,0.1) * 1e-3, 4)
 i_ext = np.round(np.linspace(83, 134, 12) * 1e-2, 3)
 currents = np.array_split(i_ext, 4)
 
+# sugestão: buscar a variável "gkbar_im" dentro do arquivo sPY_template para altera-la em cada batch
+
 batch = 1
 v = 1
 
