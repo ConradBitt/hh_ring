@@ -75,7 +75,6 @@ if cfg.addIClamp:
         params = getattr(cfg, key, None)
         [pop,sec,loc,start,dur,amp] = [params[s] for s in ['pop','sec','loc','start','dur','amp']]
 
-        #cfg.analysis['plotTraces']['include'].append((pop,0))  # record that pop
         # add stim source
         netParams.stimSourceParams[key] = {'type': 'IClamp', 'delay': start, 'dur': dur, 'amp': amp}
         # connect stim source to target
@@ -96,25 +95,6 @@ netParams.synMechParams['AMPA'] = {'mod': 'Exp2Syn', 'tau1': 0.1, 'tau2': 5.0, '
 #------------------------------------------------------------------------------
 # Connectivity rules
 #------------------------------------------------------------------------------
-
-# netParams.connParams['EE'] = { 
-#     'preConds': {'pop': cfg.allpops}, 
-#     'postConds': {'pop': cfg.allpops},
-#     'synMech': 'AMPA', # ESynMech,
-#     'probability': 0.1, 
-#     'weight': cfg.gex, # 'delay': 'defaultDelay+dist_3D/propVelocity', 'synsPerConn': int(synperconnNumber[pre][post]+0.5)
-#     }    
-
-# # connect initial spikes
-# netParams.connParams['initialrandom'] = { 
-#     'preConds': {'pop': 'initialspikes'},
-#     'postConds': {'pop': cfg.allpops},
-#     'synMech': 'AMPA', # target synaptic mechanism
-#     'probability': 0.50, 
-#     'weight': 0.0001, 
-#     'delay': 0.05
-#     }  
-
 ## Spatial disposition of neurons
 r = netParams.sizeX/2.0  # radius of circle
 dist_between_neurons = 2.0*r*np.sin(np.pi/cfg.cellNumber)
@@ -128,8 +108,8 @@ netParams.connParams['EE'] = {
     'postConds': {'pop': cfg.allpops},
     'synMech': 'AMPA', 
     'probability': prob, 
-    'delay' : cfg.synapse_delay, # If omitted, defaults to netParams.defaultDelay = 1
-    'weight': cfg.gex, # 'delay': 'defaultDelay+dist_3D/propVelocity', 'synsPerConn': int(synperconnNumber[pre][post]+0.5)
+    'delay' : cfg.synapse_delay, # If omitted, defaults to netParams.defaultDelay = 1ms
+    'weight': cfg.gex,
     }
 
 # connect initial spikes

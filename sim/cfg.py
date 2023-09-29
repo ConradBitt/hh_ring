@@ -27,8 +27,7 @@ rootFolder = os.getcwd()
 #------------------------------------------------------------------------------
 # Run parameters
 #------------------------------------------------------------------------------
-# 20000ms durou 31 minutos de simulação
-cfg.duration = 20000.0 ## Duration of the sim, in ms  
+cfg.duration = 10000.0 ## Duration of the sim, in ms  
 cfg.dt = 0.05
 # ~ cfg.seeds = {'conn': 4321, 'stim': 1234, 'loc': 4321} 
 cfg.hParams = {'celsius': 34, 'v_init': -65}  
@@ -45,17 +44,16 @@ cfg.printPopAvgRates = True
 cfg.checkErrors = False
 
 cfg.allpops = []
-cfg.allcells = ['sPY']#, 'sIN']#, 'sPYbr', 'sPYb', 'sPYr', 'sPY']
+cfg.allcells = ['sPY']
 
 #------------------------------------------------------------------------------
 # Net
 #------------------------------------------------------------------------------
-# Start time:  2023-09-27 14:22:23.374192
-# 
+
 cfg.cellNumber = 512
-cfg.gex = 0.0004 # default 0.0005
-cfg.n_neighbors = 52 #int(0.3 * cfg.cellNumber) # all conetions 
-cfg.amp = 0.175
+cfg.gex = 0.0003 # default 0.0005
+cfg.n_neighbors = 42 #int(0.3 * cfg.cellNumber) # all conetions 
+cfg.amp = 0.170
 cfg.synapse_delay = cfg.dt #0.05 #1 #0.01
 
 for cell in cfg.allcells:
@@ -64,9 +62,8 @@ for cell in cfg.allcells:
 #------------------------------------------------------------------------------
 # Analysis and plotting 
 #------------------------------------------------------------------------------
-# cfg.analysis['plot2Dnet']   = {'include': cfg.allpops, 'saveFig': True, 'showFig': False, 'showConns': True, 'figSize': (12,12), 'view': 'xz', 'fontSize':8} 
-cfg.analysis['plotTraces'] = {'include': cfg.allpops, 'saveFig': True, 'showFig': False, 'oneFigPer':'trace', 'axis': False, 'subtitles':False,'timeRange': [cfg.duration-500,cfg.duration], 'legend':False, 'overlay':False, 'figSize':(36, 24), 'fontSize':2}
-cfg.analysis['plotRaster'] = {'include': cfg.allpops, 'saveFig': True, 'showFig': False, 'popRates': False, 'orderInverse': True, 'timeRange': [cfg.duration-500,cfg.duration],'figSize': (24,12), 'lw': 0.3, 'markerSize':10, 'marker': '.', 'dpi': 300}
+cfg.analysis['plotTraces'] = {'include': cfg.allpops, 'saveFig': True, 'showFig': False, 'oneFigPer':'trace', 'axis': False, 'subtitles':False,'timeRange': [cfg.duration-5000,cfg.duration], 'legend':False, 'overlay':False, 'figSize':(36, 24), 'fontSize':2}
+cfg.analysis['plotRaster'] = {'include': cfg.allpops, 'saveFig': True, 'showFig': False, 'popRates': False, 'orderInverse': True, 'timeRange': [cfg.duration-5000,cfg.duration],'figSize': (24,12), 'lw': 0.3, 'markerSize':10, 'marker': '.', 'dpi': 300}
 
 #------------------------------------------------------------------------------
 # Current inputs 
@@ -83,7 +80,6 @@ cfg.IClamp0 =   {
     }    
 
 # spikes during 50 ms to create desyncronization
-# 50ms / 7 = 1 spike every 7.143ms
 cfg.desyncr_spikes_period = 7  # default 7 = 1 spike every 7.143ms
 cfg.desyncr_spikes_dur = 500 # defaut 500 = 50 ms
 cfg.numCellsDesync = 70 #100 # numCells to produce desyncronization
