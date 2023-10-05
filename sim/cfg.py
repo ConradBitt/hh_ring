@@ -50,11 +50,11 @@ cfg.allcells = ['sPY']
 # Net
 #------------------------------------------------------------------------------
 
-cfg.cellNumber = 512
+cfg.cellNumber = 200
 cfg.gex = 0.0003 # default 0.0005
 cfg.n_neighbors = 36 #int(0.3 * cfg.cellNumber) # all conetions 
 cfg.amp = 0.170
-cfg.synapse_delay = cfg.dt #0.05 #1 #0.01
+cfg.synapse_delay = cfg.dt + 1e-5 #0.05 #1 #0.01
 
 for cell in cfg.allcells:
     cfg.allpops.append(f'pop_{cell}')
@@ -63,7 +63,7 @@ for cell in cfg.allcells:
 # Analysis and plotting 
 #------------------------------------------------------------------------------
 # cfg.analysis['plotTraces'] = {'include': cfg.allpops, 'saveFig': True, 'showFig': False, 'oneFigPer':'trace', 'axis': False, 'subtitles':False,'timeRange': [cfg.duration-5000,cfg.duration], 'legend':False, 'overlay':False, 'figSize':(36, 24), 'fontSize':2}
-cfg.analysis['plotRaster'] = {'include': cfg.allpops, 'saveFig': True, 'showFig': False, 'popRates': False, 'orderInverse': True, 'timeRange': [cfg.duration-5000,cfg.duration],'figSize': (24,12), 'lw': 0.3, 'markerSize':10, 'marker': '.', 'dpi': 300}
+cfg.analysis['plotRaster'] = {'include': cfg.allpops, 'saveFig': True, 'showFig': False, 'popRates': False, 'orderInverse': True, 'timeRange': [cfg.duration-1000,cfg.duration],'figSize': (24,12), 'lw': 0.3, 'markerSize':10, 'marker': '.', 'dpi': 300}
 
 #------------------------------------------------------------------------------
 # Current inputs 

@@ -166,3 +166,18 @@ cython_debug/
 sim/x86_64
 data/*.pkl
 data/*/*.pkl
+data/
+data7/*
+data71/*
+
+# figures
+#figures/*
+
+# python files 
+sim/metrics.py
+sim/plotRaster.py
+sim/plotLOP.py
+sim/preprocessing.py
+
+# notebooks
+notebooks/*
