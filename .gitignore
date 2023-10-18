@@ -167,6 +167,8 @@ sim/x86_64
 data/*.pkl
 data/*/*.pkl
 data/
+data2/
+data3/
 data7/*
 data71/*
 
@@ -178,6 +180,7 @@ sim/metrics.py
 sim/plotRaster.py
 sim/plotLOP.py
 sim/preprocessing.py
+sim/plotAll.py
 
 # notebooks
 notebooks/*

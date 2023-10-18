@@ -121,3 +121,17 @@ netParams.connParams['initialrandom'] = {
     'weight': 0.0001, 
     'delay': 0.05
     }  
+
+
+#------------------------------------------------------------------------------
+# Description
+#------------------------------------------------------------------------------
+netParams.description = f"""
+- v1    ** Locking for a chimera states in to frequency range (max 20hz)
+        - Network with 200 neurons, duration 20000ms
+        - cellNumber: 200
+        - gex: np.round(np.arange(2.,4.3,0.2) * 1e-4, 6)
+        - n_neighbors: np.arange(65,5,-5)
+        - amp: 170pA
+        - synapse_delay: 0.05
+"""
