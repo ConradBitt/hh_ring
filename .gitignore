@@ -185,6 +185,8 @@ sim/plotRaster.py
 sim/plotLOP.py
 sim/preprocessing.py
 sim/plotAll.py
+sim/readpickles.py
 
 # notebooks
 notebooks/*
+
