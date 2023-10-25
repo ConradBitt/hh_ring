@@ -11,29 +11,38 @@ Contributors: conrad.bittencourt@gmail.com, fernandodasilvaborges@gmail.com
 
 import os
 import numpy as np
-import time
+import datetime
+import json
 
 # Simulação: 18065.6s
 
-# coupling of elements
-gex = np.round(np.arange(2.,4.3,0.2) * 1e-4, 6)
-# external current
-# i_ext = np.round(np.linspace(0.7, 0.9, 12), 3)
-# currents = np.array_split(i_ext, 4)
+time_stamps = {
+    'batches':{},
+    'subbatches':{},
+}
+with open('../data/time_stamps.json', 'w') as fp:
+    json.dump(time_stamps, fp)
 
-n_cons_network = np.arange(65,5,-5)
-ncons = np.array_split(n_cons_network,3)
+gex = np.round(np.arange(1.,5.5,0.05) * 1e-4, 6)
 
+# Conns per neuron
+n_cons_per_neuron = np.arange(100,10,-1)
+ncons = np.array_split(n_cons_per_neuron,15)
 batch = 1
-v = 7
-delta_max = 5
-print(f'Grid: {len(n_cons_network)} x {len(gex)}\n')
+v = 8
+print(f'Grid: {len(n_cons_per_neuron)} x {len(gex)}\n\n')
+
 for g in gex:
     for conn in ncons:
-        os.system(f'python3 batch.py {v} {batch} {g:.7f} ' + f'{conn}')
+        os.system(f'python3 batch.py 3 {batch} {g:.5f} ' + f'{conn}')
         for c in range(len(conn)):
-            os.system(f'python3 preprocessing.py {v} {batch} {c} {delta_max}')
-            print(f'\n\n ** simulation: {batch+c} / {len(n_cons_network) * len(gex)}.... \n\n')
+            isubbatch = datetime.datetime.now()
+            os.system(f'python3 preprocessing.py {v} {batch} {c}')  
+            fsubbatch = datetime.datetime.now()
+
+            time_stamps['subbatches'][batch+c] = (fsubbatch - isubbatch).total_seconds()
+            with open('../data/time_stamps.json', 'w') as fp:
+                json.dump(time_stamps, fp)
+
+            print(f'> Simulation: {batch} / {(len(n_cons_per_neuron) * len(gex)) / len(conn)}')
         batch+=1
-
-

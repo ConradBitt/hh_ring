@@ -91,7 +91,7 @@ def calculate_t_range(spkinds, spkts, step=1):
     return spkmat, t_range 
 
 @jit(nopython=True)
-def calculate_phases(spkmat, t_range):
+def calculate_phases(spkmat, t_range, ti=0, tf=-1):
     """
     Calcula as fases dos intervalos inter-disparos (ISIs) para um conjunto de eventos de disparo e um intervalo de tempo.
 
@@ -111,7 +111,9 @@ def calculate_phases(spkmat, t_range):
                 if t0 < t < t1:
                     # calcula a fase phi e adiciona no array
                     phases[n, i] = phi(t, t0, t1)
-    return t_range, phases 
+    t_range = t_range[ti:tf]
+    phases = phases[:, ti:tf]
+    return t_range, phases
 
 
 @jit(nopython=True)
@@ -199,15 +201,13 @@ def isi_cv_freq(tpeaks):
     
     return isi_bar, cv, freq_bar
 
-
-@jit(nopython=True)
-def analise_media_lop(lop, thresholds):
+def countNeuronsUnderThr(lop, thresholds):
     """
-    Realiza uma análise da média das séries temporais em 'lop' com base em limiares.
+    Realiza a média temporal do lop dos neuronios, conta quantos elementos estão abaixo do threhold.
 
     Esta função recebe um conjunto de dados 'lop' representando séries temporais e uma lista de 'thresholds' (limiares).
-    Ela realiza uma análise da média das séries temporais e conta o número de elementos coerentes, onde um elemento é considerado coerente
-    se seu valor médio é menor do que um determinado limiar.
+    Ela realiza uma análise da média das séries temporais e conta o número de elementos coerentes,
+    onde um elemento é considerado coerente se seu valor médio é menor do que um determinado limiar.
 
     Args:
         lop (numpy.ndarray): Um array NumPy contendo as séries temporais a serem avaliadas.
@@ -223,25 +223,16 @@ def analise_media_lop(lop, thresholds):
         None
     """
     # Seleciona a última iteração das séries temporais
-    ultima_iteracao = lop[-1, :]
+    ultima_iteracao = lop[:, -1]
     
     # Calcula o valor médio ao longo das séries temporais, excluindo a última iteração
-    num_time_points = lop.shape[0] - 1
-    num_neurons = lop.shape[1]
-    
-    mean_lop_time = np.zeros(num_neurons, dtype=np.float64)
-    
-    for i in range(num_neurons):
-        for t in range(num_time_points):
-            mean_lop_time[i] += lop[t, i]
-    
-    mean_lop_time /= num_time_points
+    mean_lop_temporal = lop.mean(axis=1)
     
     # Inicializa um array para armazenar o número de elementos coerentes para cada limiar
     n_coerentes = np.zeros_like(thresholds)
     
     # Itera através dos limiares e conta o número de elementos coerentes
     for i, thr in enumerate(thresholds):
-        n_coerentes[i] = np.sum(mean_lop_time < thr)
+        n_coerentes[i] = len(mean_lop_temporal[mean_lop_temporal < thr])
     
-    return mean_lop_time, ultima_iteracao, n_coerentes
+    return mean_lop_temporal, ultima_iteracao, n_coerentes

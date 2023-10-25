@@ -51,9 +51,9 @@ cfg.allcells = ['sPY']
 #------------------------------------------------------------------------------
 
 cfg.cellNumber = 200
-cfg.gex = 0.00022 # default 0.0005
-cfg.n_neighbors = 10 #int(0.3 * cfg.cellNumber) # all conetions 
-cfg.amp = 0.170
+cfg.gex = 0.0001 # default 0.0005
+cfg.n_neighbors = 100 #int(0.3 * cfg.cellNumber) # all conetions 
+cfg.amp = 0.175
 cfg.synapse_delay = cfg.dt + 1e-5 #0.05 #1 #0.01
 
 for cell in cfg.allcells:

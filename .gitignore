@@ -169,6 +169,10 @@ data/*/*.pkl
 data/
 data2/
 data3/
+data4/
+datav8/
+data_no_otm/
+data_with_otm/
 data7/*
 data71/*
 
