@@ -130,8 +130,8 @@ netParams.description = f"""
 - v1    ** Locking for a chimera states in to frequency range (max 20hz)
         - Network with 200 neurons, duration 20000ms
         - cellNumber: 200
-        - gex: np.round(np.arange(2.,4.3,0.2) * 1e-4, 6)
-        - n_neighbors: np.arange(65,5,-5)
+        - gex: [0.00001*vv for vv in range(1,65,2)]
+        - n_neighbors: [vv for vv in range(1,65,2)]
         - amp: 170pA
         - synapse_delay: 0.05
 """

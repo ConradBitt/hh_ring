@@ -27,7 +27,7 @@ rootFolder = os.getcwd()
 #------------------------------------------------------------------------------
 # Run parameters
 #------------------------------------------------------------------------------
-cfg.duration = 20000.0 ## Duration of the sim, in ms  
+cfg.duration = 25000.0 ## Duration of the sim, in ms  
 cfg.dt = 0.05
 # ~ cfg.seeds = {'conn': 4321, 'stim': 1234, 'loc': 4321} 
 cfg.hParams = {'celsius': 34, 'v_init': -65}  
@@ -63,7 +63,7 @@ for cell in cfg.allcells:
 # Analysis and plotting 
 #------------------------------------------------------------------------------
 # cfg.analysis['plotTraces'] = {'include': cfg.allpops, 'saveFig': True, 'showFig': False, 'oneFigPer':'trace', 'axis': False, 'subtitles':False,'timeRange': [cfg.duration-5000,cfg.duration], 'legend':False, 'overlay':False, 'figSize':(36, 24), 'fontSize':2}
-# cfg.analysis['plotRaster'] = {'include': cfg.allpops, 'saveFig': True, 'showFig': False, 'popRates': False, 'orderInverse': True, 'timeRange': [cfg.duration-5000,cfg.duration],'figSize': (24,12), 'lw': 0.3, 'markerSize':10, 'marker': '.', 'dpi': 300}
+cfg.analysis['plotRaster'] = {'include': cfg.allpops, 'saveFig': True, 'showFig': False, 'popRates': False, 'orderInverse': True, 'timeRange': [cfg.duration-5000,cfg.duration],'figSize': (24,12), 'lw': 0.3, 'markerSize':10, 'marker': '.', 'dpi': 300}
 
 #------------------------------------------------------------------------------
 # Current inputs 

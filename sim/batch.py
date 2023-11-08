@@ -23,8 +23,13 @@ def custom():
     
     # params[('seeds', 'conn')] =  [1] 
     # params[('IClamp0', 'amp')] = [0.08, 0.10, 0.12] 
-    params[('gex')] = [0.0005, 0.0010]
-    params[('n_neighbors')] = [vv for vv in range(10,30,10)]
+    # params[('gex')] = [0.0001*vv for vv in range(2)]
+    # params[('n_neighbors')] = [vv for vv in range(10,30,10)]
+
+    params[('gex')] = [0.00001*vv for vv in range(2,65,2)]  # 32 elements
+    params[('n_neighbors')] = [vv for vv in range(2,65,2)]  # 32 elements
+
+    # approx
 
     b = Batch(params=params, netParamsFile='netParams.py', cfgFile='cfg.py')
 
@@ -67,9 +72,9 @@ def setRunCfg(b, type='mpi_bulletin'):
         b.runCfg = {'type': 'hpc_slurm',
                     'allocation': 'TG-IBN140002',
                     'partition': 'compute',
-                    'walltime': '1:00:00',
+                    'walltime': '15:00:00',
                     'nodes': 1,
-                    'coresPerNode': 128,
+                    'coresPerNode': 64,
                     'email': 'conrad.bittencourt@gmail.com',
                     'folder': '/home/fborges/hh_ring/sim/',
                     'script': 'init.py',
@@ -83,7 +88,7 @@ def setRunCfg(b, type='mpi_bulletin'):
                     'partition': 'debug',
                     'walltime': '1:00:00',
                     'nodes': 1,
-                    'coresPerNode': 4,
+                    'coresPerNode': 2,
                     'email': 'conrad.bittencourt@gmail.com',
                     'folder': '/home/fborges/hh_ring/sim/',
                     'script': 'init.py',
@@ -112,8 +117,8 @@ def setRunCfg(b, type='mpi_bulletin'):
 if __name__ == '__main__': 
     b = custom() #
 
-    b.batchLabel = 'v1_batch0'  
+    b.batchLabel = 'v1_batch4'  
     b.saveFolder = '../data/'+b.batchLabel
     b.method = 'grid'
-    setRunCfg(b, 'mpi_direct') # hpc_slurm_Expanse  setRunCfg(b, 'hpc_slurm_Cineca_debug') # setRunCfg(b, 'hpc_slurm_Expanse')
+    setRunCfg(b, 'hpc_slurm_Expanse') # hpc_slurm_Expanse  setRunCfg(b, 'hpc_slurm_Cineca_debug') # setRunCfg(b, 'hpc_slurm_Expanse')
     b.run() # run batch
