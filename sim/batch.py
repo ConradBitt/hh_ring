@@ -5,10 +5,11 @@ Influence if slow potassium and Ca channels in bistable firing patterns using Ne
 
 Contributors: protachevicz@gmail.com, fernandodasilvaborges@gmail.com
 """
+
 from netpyne.batch import Batch
 from netpyne import specs
-import sys
 import numpy as np
+import sys
 
 try:
     from __main__ import cfg  # import SimConfig object with params from parent module
@@ -23,13 +24,15 @@ def custom():
     
     # params[('seeds', 'conn')] =  [1] 
     # params[('IClamp0', 'amp')] = [0.08, 0.10, 0.12] 
-    # params[('gex')] = [0.0001*vv for vv in range(2)]
-    # params[('n_neighbors')] = [vv for vv in range(10,30,10)]
+    # params[('gex')] = [round(1e-5*vv, 6) for vv in range(20,34,2)]
+    # params[('n_neighbors')] = [vv for vv in range(20, 55,5)]
 
-    params[('gex')] = [0.00001*vv for vv in range(2,65,2)]  # 32 elements
-    params[('n_neighbors')] = [vv for vv in range(2,65,2)]  # 32 elements
+    # params[('gex')] = [np.round(1e-5*vv, 6) for vv in range(2,66,5)]  # 32 elements
+    # params[('n_neighbors')] = [vv for vv in range(2,66,5)]  # 32 elements
 
-    # approx
+    params[('gex')] = [float(sys.argv[3])]
+    arg_conns = [value.replace('[','').replace(']','').replace(',','').replace("'",'') for value in sys.argv[4:]]
+    params[('n_neighbors')] = np.array([int(value) for value in arg_conns if value != '']).astype('int64')
 
     b = Batch(params=params, netParamsFile='netParams.py', cfgFile='cfg.py')
 
@@ -46,7 +49,7 @@ def setRunCfg(b, type='mpi_bulletin'):
 
     elif type=='mpi_direct':
         b.runCfg = {'type': 'mpi_direct',
-            'cores': 2,
+            'cores': 20,
             'script': 'init.py',
             'mpiCommand': 'mpiexec', # i7  --use-hwthread-cpus
             'skip': True}
@@ -72,10 +75,10 @@ def setRunCfg(b, type='mpi_bulletin'):
         b.runCfg = {'type': 'hpc_slurm',
                     'allocation': 'TG-IBN140002',
                     'partition': 'compute',
-                    'walltime': '15:00:00',
+                    'walltime': '01:30:00',
                     'nodes': 1,
-                    'coresPerNode': 64,
-                    'email': 'conrad.bittencourt@gmail.com',
+                    'coresPerNode': 128,
+                    # 'email': 'conrad.bittencourt@gmail.com',
                     'folder': '/home/fborges/hh_ring/sim/',
                     'script': 'init.py',
                     'mpiCommand': 'mpirun',
@@ -88,7 +91,7 @@ def setRunCfg(b, type='mpi_bulletin'):
                     'partition': 'debug',
                     'walltime': '1:00:00',
                     'nodes': 1,
-                    'coresPerNode': 2,
+                    'coresPerNode': 64,
                     'email': 'conrad.bittencourt@gmail.com',
                     'folder': '/home/fborges/hh_ring/sim/',
                     'script': 'init.py',
@@ -99,26 +102,26 @@ def setRunCfg(b, type='mpi_bulletin'):
 # ----------------------------------------------------------------------------------------------
 # Main code
 # ----------------------------------------------------------------------------------------------
-# if __name__ == '__main__': 
-#     b = custom() #
-#     # 
-#     version_number = sys.argv[1]
-#     batch_number = sys.argv[2]
-#     batch_number = batch_number.zfill(4) # fill string with zeros.
-
-#     b.batchLabel = f'v{version_number}_batch{batch_number}' #cfg.simLabel  # default: 'v0_batch0'
-        
-#     cfg.simLabel = b.batchLabel
-#     b.saveFolder = '../data/'+b.batchLabel
-#     b.method = 'grid'
-#     setRunCfg(b, 'mpi_direct')     # setRunCfg(b, 'mpi_bulletin')
-#     b.run() # run batch
-
 if __name__ == '__main__': 
     b = custom() #
+    # 
+    version_number = sys.argv[1]
+    batch_number = sys.argv[2]
+    batch_number = batch_number.zfill(4) # fill string with zeros.
 
-    b.batchLabel = 'v1_batch4'  
+    b.batchLabel = f'v{version_number}_batch{batch_number}' #cfg.simLabel  # default: 'v0_batch0'
+        
+    cfg.simLabel = b.batchLabel
     b.saveFolder = '../data/'+b.batchLabel
     b.method = 'grid'
-    setRunCfg(b, 'hpc_slurm_Expanse') # hpc_slurm_Expanse  setRunCfg(b, 'hpc_slurm_Cineca_debug') # setRunCfg(b, 'hpc_slurm_Expanse')
+    setRunCfg(b, 'hpc_slurm_Expanse')     # setRunCfg(b, 'mpi_bulletin')
     b.run() # run batch
+
+# if __name__ == '__main__': 
+#     b = custom() #
+
+#     b.batchLabel = 'v1_batch4'  
+#     b.saveFolder = '../data/'+b.batchLabel
+#     b.method = 'grid'
+#     setRunCfg(b, 'hpc_slurm_Expanse') # hpc_slurm_Expanse  setRunCfg(b, 'hpc_slurm_Cineca_debug') # setRunCfg(b, 'hpc_slurm_Expanse')
+#     b.run() # run batch

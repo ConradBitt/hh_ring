@@ -29,7 +29,7 @@ rootFolder = os.getcwd()
 #------------------------------------------------------------------------------
 cfg.duration = 25000.0 ## Duration of the sim, in ms  
 cfg.dt = 0.05
-# ~ cfg.seeds = {'conn': 4321, 'stim': 1234, 'loc': 4321} 
+# cfg.seeds = {'conn': 4321, 'stim': 1234, 'loc': 4321} 
 cfg.hParams = {'celsius': 34, 'v_init': -65}  
 cfg.verbose = False
 cfg.createNEURONObj = True
@@ -51,8 +51,8 @@ cfg.allcells = ['sPY']
 #------------------------------------------------------------------------------
 
 cfg.cellNumber = 200
-cfg.gex = 0.00028 # default 0.0005
-cfg.n_neighbors = 32 #int(0.3 * cfg.cellNumber) # all conetions 
+cfg.gex = 0.00022 # default 0.0005
+cfg.n_neighbors = 40 #int(0.3 * cfg.cellNumber) # all conetions 
 cfg.amp = 0.170
 cfg.synapse_delay = cfg.dt + 1e-5 #0.05 #1 #0.01
 
@@ -92,7 +92,7 @@ cfg.numCellsDesync = 70 #100 # numCells to produce desyncronization
 # cfg.recordTraces = {'V_soma': {'sec':'soma_0', 'loc':0.5, 'var':'v'}}  ## Dict with traces to record
 # cfg.recordStim = True
 # cfg.recordTime = True
-cfg.recordStep = 0.1            
+cfg.recordStep = 0.05            
 
 cfg.simLabel = 'v0_batch0'
 cfg.saveFolder = '../data/'+cfg.simLabel

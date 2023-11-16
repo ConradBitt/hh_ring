@@ -167,6 +167,8 @@ sim/x86_64
 data/*.pkl
 data/*/*.pkl
 data/
+data_tests/
+data1/
 data2/
 data3/
 data4/
@@ -175,6 +177,7 @@ data_no_otm/
 data_with_otm/
 data7/*
 data71/*
+pycodes/*
 
 # figures
 #figures/*
@@ -189,4 +192,6 @@ sim/readpickles.py
 
 # notebooks
 notebooks/*
+
+
 

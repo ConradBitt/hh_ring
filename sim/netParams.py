@@ -119,7 +119,7 @@ netParams.connParams['initialrandom'] = {
     'synMech': 'AMPA', # target synaptic mechanism
     'probability': 0.50, 
     'weight': 0.0001, 
-    'delay': 0.05
+    'delay': cfg.synapse_delay
     }  
 
 
@@ -130,8 +130,8 @@ netParams.description = f"""
 - v1    ** Locking for a chimera states in to frequency range (max 20hz)
         - Network with 200 neurons, duration 20000ms
         - cellNumber: 200
-        - gex: [0.00001*vv for vv in range(1,65,2)]
-        - n_neighbors: [vv for vv in range(1,65,2)]
+        - gex: [np.round(1e-5*vv, 6) for vv in range(2,66,4)]
+        - n_neighbors: [vv for vv in range(2,66,4)]
         - amp: 170pA
         - synapse_delay: 0.05
 """

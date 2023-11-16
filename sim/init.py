@@ -28,12 +28,15 @@ sim.net.createCells()              			# instantiate network cells based on defin
 
 r = 50  # radius
 center = (50, 50) # center in um
-theta = np.linspace(0, 2*np.pi, len(sim.net.cells))  # angle 
+theta = np.linspace(0, 2*np.pi, cfg.cellNumber)  # angle 
 x = center[0] + r*np.cos(theta) # x-values in um
 z = center[1] + r*np.sin(theta) # z-values in um
 
-# print(sim.rank,sim.net.cells[0].tags)
-for i, metype in enumerate(sim.net.cells):
+print(sim.rank,sim.net.cells[0].tags)
+for ii, metype in enumerate(sim.net.cells):
+    # verificar a estrutura da rede com e sem o código abaixo
+    i = int(sim.rank) + ii
+
     # looping to change the spatial coordinates of neurons
     metype.tags['x'] = x[i]     # x positions in um
     metype.tags['y'] = 50.0
@@ -41,7 +44,8 @@ for i, metype in enumerate(sim.net.cells):
     metype.tags['xnorm'] = x[i]/100.0
     metype.tags['ynorm'] = 0.5
     metype.tags['znorm'] = z[i]/100.0
-# print(sim.rank,sim.net.cells[0].tags)
+print(sim.rank,sim.net.cells[0].tags)
+
 
 sim.net.connectCells()            			# create connections between cells based on params
 sim.net.addStims() 							# add network stimulation
