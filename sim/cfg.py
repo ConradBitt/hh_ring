@@ -55,6 +55,8 @@ cfg.gex = 0.00022 # default 0.0005
 cfg.n_neighbors = 40 #int(0.3 * cfg.cellNumber) # all conetions 
 cfg.amp = 0.170
 cfg.synapse_delay = cfg.dt + 1e-5 #0.05 #1 #0.01
+cfg.neuronPerCore = 20
+cfg.coresPerNode = int(cfg.cellNumber / cfg.neuronPerCore)
 
 for cell in cfg.allcells:
     cfg.allpops.append(f'pop_{cell}')
@@ -63,10 +65,14 @@ for cell in cfg.allcells:
 # Analysis and plotting 
 #------------------------------------------------------------------------------
 # cfg.analysis['plotTraces'] = {'include': cfg.allpops, 'saveFig': True, 'showFig': False, 'oneFigPer':'trace', 'axis': False, 'subtitles':False,'timeRange': [cfg.duration-5000,cfg.duration], 'legend':False, 'overlay':False, 'figSize':(36, 24), 'fontSize':2}
-cfg.analysis['plotRaster'] = {'include': cfg.allpops, 'saveFig': True, 'showFig': False, 'popRates': False, 'orderInverse': True, 'timeRange': [cfg.duration-5000,cfg.duration],'figSize': (24,12), 'lw': 0.3, 'markerSize':10, 'marker': '.', 'dpi': 300}
+cfg.analysis['plotRaster'] = {'include': cfg.allpops, 'saveFig': True, 'showFig': False, 'popRates': False, 'orderInverse': True, 'timeRange': [cfg.duration-1000,cfg.duration],'figSize': (24,12), 'lw': 0.3, 'markerSize':10, 'marker': '.', 'dpi': 300}
+cfg.analysis['plot2Dnet']   = {
+    'include': cfg.allpops , 'saveFig': True, 'showFig': False, 'showConns': True,
+    'figSize': (12,12), 'view': 'xz', 'fontSize':12,
+    }
 
 #------------------------------------------------------------------------------
-# Current inputs 
+# Current inputs  
 #------------------------------------------------------------------------------
 cfg.addIClamp = 1
 delaystim = 0
@@ -99,7 +105,7 @@ cfg.saveFolder = '../data/'+cfg.simLabel
 # cfg.filename =                	## Set file output name
 cfg.savePickle = True         	## Save pkl file
 cfg.saveJson = False           	## Save json file
-cfg.saveDataInclude = ['simConfig', 'netParams', 'simData'] ## 
+cfg.saveDataInclude = ['simConfig', 'netParams', 'simData', 'net'] ## 
 cfg.backupCfgFile = None 		##  
 cfg.gatherOnlySimData = False	##  
 cfg.saveCellSecs = False			##  

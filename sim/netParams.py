@@ -117,7 +117,7 @@ netParams.connParams['initialrandom'] = {
     'preConds': {'pop': 'initialspikes'},
     'postConds': {'pop': cfg.allpops},
     'synMech': 'AMPA', # target synaptic mechanism
-    'probability': 0.50, 
+    'probability': 1., 
     'weight': 0.0001, 
     'delay': cfg.synapse_delay
     }  
@@ -134,4 +134,14 @@ netParams.description = f"""
         - n_neighbors: [vv for vv in range(2,66,4)]
         - amp: 170pA
         - synapse_delay: 0.05
+
+
+- v2    ** Locking for a chimera states in to frequency range (max 200hz)
+        - Network with 200 neurons, duration 25000ms
+        - cellNumber: 200
+        - gex: [np.round(1e-5*vv, 6) for vv in range(2,66,4)]
+        - n_neighbors: [vv for vv in range(2,66,4)]
+        - amp: 170pA
+        - synapse_delay: 0.05
+        - 10 neurons per core
 """

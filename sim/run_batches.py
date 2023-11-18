@@ -14,26 +14,17 @@ import numpy as np
 import time 
 
 # coupling of elements
-# gex = [19*1e-5]
-# n_cons_network = [vv for vv in range(22,42,2)]
-# ncons = np.array_split(n_cons_network, 2)
+gex =  [round(1e-5*vv, 6) for vv in range(6,36,1)]
+n_cons_network = [vv for vv in range(2,62,2)]
+ncons = np.array_split(n_cons_network, 6)
 
 
-# batch = 81
-# v = 1
-
-# coupling of elements
-gex = [20*1e-5]
-n_cons_network = [vv for vv in range(22,32,2)]
-ncons = np.array_split(n_cons_network, 1)
-
-
-batch = 87
-v = 1
+batch = 1
+v = 2
 delta_max = 5
 
 for g in gex:
     for conn in ncons:
         os.system(f'ipython batch.py {v} {batch} {g:.7f} ' + f'{conn}')
-        time.sleep(60) # sleep by 1 minute 20 seconds
+        time.sleep(80)
         batch+=1
