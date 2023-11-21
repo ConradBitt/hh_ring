@@ -134,7 +134,7 @@ netParams.description = f"""
         - n_neighbors: [vv for vv in range(2,66,4)]
         - amp: 170pA
         - synapse_delay: 0.05
-
+        - cores per node 80
 
 - v2    ** Locking for a chimera states in to frequency range (max 200hz)
         - Network with 200 neurons, duration 25000ms
@@ -144,4 +144,42 @@ netParams.description = f"""
         - amp: 170pA
         - synapse_delay: 0.05
         - 10 neurons per core
+
+- v3    ** Locking for a chimera states in to frequency range (max 200hz)
+        - Network with 128 neurons, duration 25000ms
+        - cellNumber: 128
+        - gex: [np.round(1e-5*vv, 6) for vv in range(2,66,4)]
+        - n_neighbors: [vv for vv in range(2,66,4)]
+        - amp: 170pA
+        - synapse_delay: 0.05
+        - 4 neurons per core
+
+- v4    ** Locking for a chimera states in to frequency range (max 200hz)
+        - Network with 256 neurons, duration 25000ms
+        - cellNumber: 256
+        - gex: [np.round(1e-5*vv, 6) for vv in range(2,66,4)]
+        - n_neighbors: [vv for vv in range(2,66,4)]
+        - amp: 170pA
+        - synapse_delay: 0.05
+        - 4 neurons per core
+
+- v5    ** Locking for a chimera states in to frequency range (max 200hz)
+        - Network with 512 neurons, duration 25000ms
+        - cellNumber: 512
+        - gex: [np.round(1e-5*vv, 6) for vv in range(2,66,4)]
+        - n_neighbors: [vv for vv in range(2,66,4)]
+        - amp: 170pA
+        - synapse_delay: 0.05
+        - cores per node 64
+        - 8 neurons per core
+
+- v6    ** Locking for a chimera states in to frequency range (max 200hz)
+        - Network with 256 neurons, duration 25000ms
+        - cellNumber: 256
+        - gex: [np.round(1e-5*vv, 6) for vv in range(2,66,4)]
+        - n_neighbors: [vv for vv in range(2,66,4)]
+        - amp: 170pA
+        - synapse_delay: 0.05
+        - cores per node 80
+        - 3.2 neurons per core
 """

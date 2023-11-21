@@ -75,7 +75,7 @@ def setRunCfg(b, type='mpi_bulletin'):
         b.runCfg = {'type': 'hpc_slurm',
                     'allocation': 'TG-IBN140002',
                     'partition': 'compute',
-                    'walltime': '01:30:00',
+                    'walltime': '00:30:00',
                     'nodes': 1,
                     # 'coresPerNode': 20,
                     'coresPerNode': int(cfg.coresPerNode),
