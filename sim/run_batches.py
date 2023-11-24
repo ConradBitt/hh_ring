@@ -46,11 +46,11 @@ delta_max = 5
 # v = 4
 # delta_max = 5
 
-for g in gex:
-    for conn in ncons:
-        os.system(f'ipython batch.py {v} {batch} {g:.7f} ' + f'{conn}')
-        time.sleep(140)
-        batch+=1
+# for g in gex:
+#     for conn in ncons:
+#         os.system(f'ipython batch.py {v} {batch} {g:.7f} ' + f'{conn}')
+#         time.sleep(140)
+#         batch+=1
 
 batch = 1
 for g in gex:

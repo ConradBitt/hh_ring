@@ -43,14 +43,18 @@ cellNumber = data['simConfig']['cellNumber']
 r = n_neighbors / cellNumber
 data['r'] = r
 print(f'Cell number: {cellNumber} \t n_neighbors: {n_neighbors} \t r: {r}')
-print(f"time simulation: {data['simData']['t'][-1]:.2f}\n")
+print(f"time simulation: {data['simConfig']['duration']}ms\n")
+
+ti = -2500
+tf = -500
+print(f"\ntime sample metrics: {tf - ti}ms\n")
 
 spkid = data['simData']['spkid']
 spkt = data['simData']['spkt']
 
 print('~ Computing phase')
 spkmat, t_range = metrics.calculate_t_range(spkinds = spkid, spkts=spkt, step=10)
-t_range, phases = metrics.calculate_phases(spkmat, t_range, ti=-2500, tf=-500)
+t_range, phases = metrics.calculate_phases(spkmat, t_range, ti=ti, tf=tf)
 
 data['t_phase'] = t_range
 data['phases'] = phases
@@ -82,7 +86,7 @@ data['LOP_delta'] = lops
 
 print('~ Counting LOP under threshold:')
 thresholds = [0.75, 0.85, 0.95, 1.]
-n_coerentes = metrics.countNeuronsUnderThr(lop, thresholds)
+n_coerentes = metrics.countNeuronsUnderThr(lops[delta], thresholds)
 data['Count_LOP_Under_Trh'] = {}
 for i, thr in enumerate(thresholds):
     print(f'threshold: {thr} - count: {n_coerentes[i]}')
