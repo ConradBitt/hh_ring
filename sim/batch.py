@@ -75,7 +75,7 @@ def setRunCfg(b, type='mpi_bulletin'):
         b.runCfg = {'type': 'hpc_slurm',
                     'allocation': 'TG-IBN140002',
                     'partition': 'compute',
-                    'walltime': '00:30:00',
+                    'walltime': '00:10:00',
                     'nodes': 1,
                     # 'coresPerNode': 20,
                     'coresPerNode': int(cfg.coresPerNode),
@@ -83,6 +83,7 @@ def setRunCfg(b, type='mpi_bulletin'):
                     'folder': '/home/fborges/hh_ring/sim/',
                     'script': 'init.py',
                     'mpiCommand': 'mpirun',
+                    # 'mpiCommand': 'srun ./x86_64/special',
                     'custom': '#SBATCH --mem=249325M\n#SBATCH --export=ALL\n#SBATCH --partition=compute',
                     'skip': True}
         
