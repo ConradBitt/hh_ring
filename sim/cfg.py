@@ -9,10 +9,12 @@ Contributors: conrad.bittencourt@gmail.com, fernandodasilvaborges@gmail.com
 
 
 import os
+import numpy as np
 from matplotlib import pyplot as plt
 from netpyne import specs
 
-cfg = specs.SimConfig()     
+cfg = specs.SimConfig()   
+
 
 #------------------------------------------------------------------------------
 #
@@ -55,8 +57,8 @@ cfg.gex = 0.00022 # default 0.0005
 cfg.n_neighbors = 40 #int(0.3 * cfg.cellNumber) # all conetions 
 cfg.amp = 0.170
 cfg.synapse_delay = cfg.dt + 1e-5 #0.05 #1 #0.01
-cfg.neuronPerCore = 16
-cfg.coresPerNode = int(cfg.cellNumber / cfg.neuronPerCore)
+cfg.neuronsPerCore = 8
+cfg.coresPerNode = int(np.ceil(cfg.cellNumber / cfg.neuronsPerCore))
 
 for cell in cfg.allcells:
     cfg.allpops.append(f'pop_{cell}')

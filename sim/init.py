@@ -35,7 +35,7 @@ z = center[1] + r*np.sin(theta) # z-values in um
 print(sim.rank,sim.net.cells[0].tags)
 for ii, metype in enumerate(sim.net.cells):
     # verificar a estrutura da rede com e sem o código abaixo
-    i = cfg.neuronPerCore * int(sim.rank) + ii
+    i = cfg.neuronsPerCore * int(sim.rank) + ii
 
     # looping to change the spatial coordinates of neurons
     metype.tags['x'] = x[i]     # x positions in um

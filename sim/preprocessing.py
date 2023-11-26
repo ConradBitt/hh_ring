@@ -45,7 +45,7 @@ data['r'] = r
 print(f'Cell number: {cellNumber} \t n_neighbors: {n_neighbors} \t r: {r}')
 print(f"time simulation: {data['simConfig']['duration']}ms\n")
 
-ti = -2500
+ti = -1500
 tf = -500
 print(f"\ntime sample metrics: {tf - ti}ms\n")
 
@@ -53,18 +53,19 @@ spkid = data['simData']['spkid']
 spkt = data['simData']['spkt']
 
 print('~ Computing phase')
-spkmat, t_range = metrics.calculate_t_range(spkinds = spkid, spkts=spkt, step=10)
-t_range, phases = metrics.calculate_phases(spkmat, t_range, ti=ti, tf=tf)
+_, t_range = metrics.calculate_t_range(spkinds = spkid, spkts = spkt, step=10)
+t_phase, phases, spkmat = metrics.calculate_phases(_, t_range, ti=ti, tf=tf)
 
-data['t_phase'] = t_range
+data['t_phase'] = t_phase
 data['phases'] = phases
-data['spkmat'] = spkmat
+data['t_peaks'] = spkmat
 
 print('~ ISI, CV and FR')
 isi_bar, cv, freq_bar = metrics.isi_cv_freq(spkmat)
 data['isi_bar'] = isi_bar
 data['cv'] = cv
 data['freq_bar'] = freq_bar
+print(f'>> ISI: {isi_bar.mean():.2f}\n>> CV: {cv.mean():.2f}\n>> FR: {freq_bar.mean():.2f}Hz\n')
 
 print('~ Computing GOP')
 gop = np.zeros(phases.shape[1])
@@ -101,3 +102,4 @@ metrics.get_size(file+'_data.pkl')
 now = datetime.datetime.now()
 print(f'Finish preprocessing: {now}')
 
+del data

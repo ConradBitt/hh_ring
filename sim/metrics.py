@@ -97,7 +97,7 @@ def calculate_phases(spkmat, t_range, ti=0, tf=-1):
 
     Args:
     spkmat (list): Uma lista de listas, onde cada sublista contém os tempos de disparo de um grupo de neurônios.
-    t_range (ndarray): Um array NumPy representando o intervalo de tempo entre o primeiro e o último evento de disparo.
+    t_phase (ndarray): Um array NumPy representando o intervalo de tempo entre o primeiro e o último evento de disparo.
 
     Returns:
     ndarray: Uma matriz NumPy contendo as fases calculadas para cada grupo de neurônios em relação ao intervalo de tempo 't_range'.
@@ -111,9 +111,15 @@ def calculate_phases(spkmat, t_range, ti=0, tf=-1):
                 if t0 < t < t1:
                     # calcula a fase phi e adiciona no array
                     phases[n, i] = phi(t, t0, t1)
-    t_range = t_range[ti:tf]
+    t_phase = t_range[ti:tf]
     phases = phases[:, ti:tf]
-    return t_range, phases
+
+    spkmat_temp = []
+    for peaks in spkmat:
+        _ = peaks[(peaks > np.min(t_phase)) & (peaks < np.max(t_phase))]
+        spkmat_temp.append(_)
+
+    return t_phase, phases, spkmat_temp
 
 
 @jit(nopython=True)
