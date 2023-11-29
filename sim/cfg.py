@@ -53,12 +53,13 @@ cfg.allcells = ['sPY']
 #------------------------------------------------------------------------------
 
 cfg.cellNumber = 256
-cfg.gex = 0.00022 # default 0.0005
-cfg.n_neighbors = 40 #int(0.3 * cfg.cellNumber) # all conetions 
-cfg.amp = 0.170
-cfg.synapse_delay = cfg.dt + 1e-5 #0.05 #1 #0.01
 cfg.neuronsPerCore = 8
 cfg.coresPerNode = int(np.ceil(cfg.cellNumber / cfg.neuronsPerCore))
+
+cfg.gex = 0.00025 # default 0.0005
+cfg.n_neighbors = 48 #int(0.3 * cfg.cellNumber) # all conetions 
+cfg.amp = 0.170
+cfg.synapse_delay = cfg.dt + 1e-5 #0.05 #1 #0.01
 
 for cell in cfg.allcells:
     cfg.allpops.append(f'pop_{cell}')
@@ -91,6 +92,7 @@ cfg.IClamp0 =   {
 cfg.desyncr_spikes_period = 7  # default 7 = 1 spike every 7.143ms
 cfg.desyncr_spikes_dur = 500 # defaut 500 = 50 ms
 cfg.numCellsDesync = 70 #100 # numCells to produce desyncronization
+cfg.percentConsDesync = 0.1
 
 #------------------------------------------------------------------------------
 # Record Data 

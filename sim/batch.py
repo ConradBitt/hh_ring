@@ -23,16 +23,14 @@ def custom():
     params = specs.ODict()
     
     # params[('seeds', 'conn')] =  [1] 
-    # params[('IClamp0', 'amp')] = [0.08, 0.10, 0.12] 
-    # params[('gex')] = [round(1e-5*vv, 6) for vv in range(20,34,2)]
-    # params[('n_neighbors')] = [vv for vv in range(20, 55,5)]
-
-    # params[('gex')] = [np.round(1e-5*vv, 6) for vv in range(2,66,5)]  # 32 elements
-    # params[('n_neighbors')] = [vv for vv in range(2,66,5)]  # 32 elements
-
-    params[('gex')] = [float(sys.argv[3])]
-    arg_conns = [value.replace('[','').replace(']','').replace(',','').replace("'",'') for value in sys.argv[4:]]
-    params[('n_neighbors')] = np.array([int(value) for value in arg_conns if value != '']).astype('int64')
+    # params[('IClamp0', 'amp')] = np.linspace(0.14,0.2,25)#[0.08, 0.10, 0.12] 
+    params[('IClamp0', 'amp')] = [float(sys.argv[3])]
+    # params[('gex')] = [round(1e-5*vv, 6) for vv in np.linspace(10, 45, 32)]
+    params[('n_neighbors')] = np.arange(2,66,2)
+    
+    # params[('gex')] = [float(sys.argv[3])]
+    # arg_conns = [value.replace('[','').replace(']','').replace(',','').replace("'",'') for value in sys.argv[4:]]
+    # params[('n_neighbors')] = np.array([int(value) for value in arg_conns if value != '']).astype('int64')
 
     b = Batch(params=params, netParamsFile='netParams.py', cfgFile='cfg.py')
 

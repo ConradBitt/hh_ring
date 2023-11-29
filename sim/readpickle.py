@@ -31,14 +31,14 @@ mean_LOP = arq_resultados['LOP_delta'][5].mean(axis=1).mean()
 mean_freq = np.mean(arq_resultados['freq_bar'])
 mean_cv = np.mean(arq_resultados['cv'])
 
-del arq_resultados
-
 # Tenta abrir o arquivo de espaço de parâmetros, cria um novo se não existir
 try:
     with open(f'../data/space_param_V{v}.pkl', 'rb') as f:  # Modificado 'wb' para 'rb'
         space_param = pickle.load(f)
 except EOFError:
     print('===== Erro EOF! =====')
+    with open('../data/log_error_readpickle.txt', 'a') as log:
+        log.writelines(f'error open: {file}')
 
 # Adiciona os dados extraídos ao dicionário space_param
 space_param['gex'][i] = gex
@@ -56,4 +56,6 @@ print(f'~ Dump pickle file: ../data/space_param_V{v}.pkl')
 with open(f'../data/space_param_V{v}.pkl', 'wb') as handle:
     pickle.dump(space_param, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
+del arq_resultados
+del space_param
 print('\n')

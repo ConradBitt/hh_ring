@@ -164,4 +164,29 @@ netParams.description = f"""
         - 8 neurons per core
         - cores per node 32
 
+
+- v4    ** Locking for a chimera states in to frequency range (max 200hz)
+        - Network with 256 neurons, duration 25000ms
+        - amp: np.linspace(0.14, 0.3, 32),4
+        - synapse_delay: 0.05
+        - n = cfg.cellNumber # = 256
+        - n = cfg.n_neighbors = 52
+        - resol = 32
+        - gex = [round(1e-5*vv, 6) for vv in np.linspace(10, 45, 32)]
+        - nodes = 16
+        - 8 neurons per core
+        - cores per node 32
+
+- v4    ** Locking for a chimera states in to frequency range (max 200hz)
+        - Network with 256 neurons, duration 25000ms
+        - amp: np.linspace(0.14, 0.3, 32),4
+        - neighbours = np.arange(2,66,2)
+        - synapse_delay: 0.05
+        - n = cfg.cellNumber # = 256
+        - resol = 32
+        - cfg.gex = 0.00025
+        - nodes = 16
+        - 8 neurons per core
+        - cores per node 32
+
 """
