@@ -34,8 +34,16 @@ delta = 5
 now = datetime.datetime.now()
 print(f'\n~~ Start pre processing {now}')
 print(f'~ Read file: {file}')
-with open(file+'_data.pkl', 'rb') as f:
-    data = pickle.load(f)
+
+### Try to open data.pkl
+try:
+    with open(file+'_data.pkl', 'rb') as f:
+        data = pickle.load(f)
+except Exception as e:
+    # write erro at prerpocessing.err
+    with open('../data/preprocessing.err', 'a') as infos:
+        infos.writelines(f'Error: {e}'+'\n')
+    sys.exit()
 
 step = data['simConfig']['recordStep']
 n_neighbors = data['simConfig']['n_neighbors']

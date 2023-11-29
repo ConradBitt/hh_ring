@@ -19,8 +19,14 @@ file = f'../data/v{v}_{batch_number}/v{v}_{batch_number}_{subbatch_number}'
 print(f'~ Read file: {file}')
 
 # Abre o arquivo e carrega os resultados usando pickle
-with open(file + '_data.pkl', 'rb') as f:
-    arq_resultados = pickle.load(f)
+try:
+    with open(file + '_data.pkl', 'rb') as f:
+        arq_resultados = pickle.load(f)
+except Exception as e:
+    with open('../data/readpickle.err', 'a') as f:
+        f.writelines(f'Errors: {e}\n')
+    sys.exit()
+
 
 # Extrai variáveis específicas dos resultados
 gex = arq_resultados['simConfig']['gex']
@@ -35,10 +41,10 @@ mean_cv = np.mean(arq_resultados['cv'])
 try:
     with open(f'../data/space_param_V{v}.pkl', 'rb') as f:  # Modificado 'wb' para 'rb'
         space_param = pickle.load(f)
-except EOFError:
-    print('===== Erro EOF! =====')
-    with open('../data/log_error_readpickle.txt', 'a') as log:
-        log.writelines(f'error open: {file}')
+except Exception as e:
+    with open('../data/readpickle.err', 'a') as log:
+        log.writelines(f'Errors: {e}\n')
+    sys.exit()
 
 # Adiciona os dados extraídos ao dicionário space_param
 space_param['gex'][i] = gex

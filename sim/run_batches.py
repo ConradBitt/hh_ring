@@ -7,8 +7,13 @@ Python script to run n-th batches.
       Therefore, we separate them into batches, create lists with the parameters (in this case, gex and n_cons_network), and apply the array_split function
       to partition the list into equal parts to pass to the batch.py file. This allows running numerous batches to traverse a grid of parameter spaces.
 
+    - In batchs.infos you can read about python commands executed in run_batches.py
+    - In preprocessing.err you can read about errors in preprocessing.py
+    - In readpickle.err you can read about errors in readpickle.py
+
+
 Parameters: 
-    - python3 batch.py version batch_number list_Gex list_n_cons_network
+    - python3 batch.py version batch_number param1
 
 Contributors: conrad.bittencourt@gmail.com, fernandodasilvaborges@gmail.com
 """
@@ -54,14 +59,27 @@ space_param = {
 with open(f'../data/space_param_V{v}.pkl', 'wb') as handle:
     pickle.dump(space_param, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
+
+command = 'ipython batch.py {v} {batch} {amp}'
+with open('../data/batchs.infos', 'a') as infos:
+    infos.writelines(command+'\n')
+
 i = 0
 for amp in amps:
     command = f'ipython batch.py {v} {batch} {amp:.4f}'
-    with open('../data/info_batchs.txt', 'a') as infos:
+    with open('../data/batchs.infos', 'a') as infos:
         infos.writelines(command+'\n')
     os.system(command)
+    
+    print(20*'=--=')
+    print(10*'' + f' Running {batch}')
+    print(20*'=--=')
     time.sleep(120)
-
+    batch += 1
+    
+i = 0
+batch = 0
+for amp in amps:
     # calculating metrics
     for subbatch in range(32):
         os.system(f'python3 preprocessing.py {v} {batch} {subbatch} {delta_max}')
@@ -69,18 +87,3 @@ for amp in amps:
         os.system(f'python3 readpickle.py {v} {batch} {subbatch} {i}')
         i+=1
     batch+=1
-
-# for g in gex:
-#     for conn in ncons:
-#         # command = f'ipython batch.py {v} {batch} {g:.7f} ' + f'{conn}'
-#         command = f'ipython batch.py {v} {batch}'
-#         with open('../data/info_batchs.txt', 'a') as infos:
-#             infos.writelines(command+'\n')
-#         os.system(command)
-#         time.sleep(140)
-#         for subbatch in range(len(conn)):
-#             os.system(f'python3 preprocessing.py {v} {batch} {subbatch} {delta_max}')
-#         batch += 1
-# time.sleep(140)
-
-# os.system('python3 readpickles.py')
