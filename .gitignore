@@ -178,7 +178,6 @@ data_no_otm/
 data_with_otm/
 data7/*
 data71/*
-pycodes/*
 
 # figures
 #figures/*
