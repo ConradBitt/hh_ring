@@ -42,8 +42,8 @@ def custom():
     ############################
     # ~>   Teste mpi_bulletin
     params[('gex')] = [round(1e-5*vv, 6) for vv in np.linspace(10,50,32)]
-    p = np.linspace((32/(4*256)), 0.400, 32)
-    params[('n_neighbors')] = (256 * p).astype(int) 
+    p = np.linspace((32/(4*cfg.cellNumber)), 0.400, 32)
+    params[('n_neighbors')] = (cfg.cellNumber * p).astype(int) 
 
     b = Batch(params=params, netParamsFile='netParams.py', cfgFile='cfg.py')
 
@@ -136,5 +136,5 @@ if __name__ == '__main__':
     b.batchLabel = 'v1_batch1'  
     b.saveFolder = '../data/'+b.batchLabel
     b.method = 'grid'
-    setRunCfg(b, 'mpi_direct2') # hpc_slurm_Expanse  setRunCfg(b, 'hpc_slurm_Cineca_debug') # setRunCfg(b, 'hpc_slurm_Expanse')
+    setRunCfg(b, 'mpi_bulletin') # hpc_slurm_Expanse  setRunCfg(b, 'hpc_slurm_Cineca_debug') # setRunCfg(b, 'hpc_slurm_Expanse')
     b.run() # run batch
