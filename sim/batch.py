@@ -41,8 +41,9 @@ def custom():
 
     ############################
     # ~>   Teste mpi_bulletin
-    params[('gex')] = [0.0005, 0.0010, 0.0015, 0.0020]
-    params[('IClamp0', 'amp')] = [0.08, 0.10, 0.12] 
+    params[('gex')] = [round(1e-5*vv, 6) for vv in np.linspace(10,50,32)]
+    p = np.linspace((32/(4*256)), 0.400, 32)
+    params[('n_neighbors')] = (256 * p).astype(int) 
 
     b = Batch(params=params, netParamsFile='netParams.py', cfgFile='cfg.py')
 
