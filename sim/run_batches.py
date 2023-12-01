@@ -35,14 +35,16 @@ gex = [round(1e-5*vv, 6) for vv in np.linspace(10, 45, resol)]
 p = np.linspace((resol/(8*n)), 0.40, resol)
 n_cons_network = np.array([x+1 if x % 2 != 0 else x for x in (n * p).astype(int)], dtype=int)
 ncons = np.array_split(n_cons_network, 4)
+amps = np.round(np.linspace(0.14, 0.25, 32),4)
+coresPerNode = [2, 4, 8]
+
 
 batch = 1
-v = 5
+v = 6
 delta_max = 5
 
 
 # arrays to space param
-amps = np.round(np.linspace(0.14, 0.25, 32),4)
 n_batchs = 32
 n_subbatchs = 32
 space_param = {
@@ -55,35 +57,39 @@ space_param = {
     'mean_cv': np.zeros(n_batchs * n_subbatchs),
 }
 
-# Cria dicionário 
-with open(f'../data/space_param_V{v}.pkl', 'wb') as handle:
-    pickle.dump(space_param, handle, protocol=pickle.HIGHEST_PROTOCOL)
+# # Cria dicionário 
+# with open(f'../data/space_param_V{v}.pkl', 'wb') as handle:
+#     pickle.dump(space_param, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
 
-command = 'ipython batch.py {v} {batch} {amp}'
+command = 'ipython batch.py {v} {batch} {neuronPerCore}'
 with open('../data/batchs.infos', 'a') as infos:
     infos.writelines(command+'\n')
 
 i = 0
-for amp in amps:
-    command = f'ipython batch.py {v} {batch} {amp:.4f}'
+for cpn in coresPerNode:
+    command = f'ipython batch.py {v} {batch} {cpn}'
     with open('../data/batchs.infos', 'a') as infos:
         infos.writelines(command+'\n')
     os.system(command)
     
     print(20*'=--=')
-    print(10*'' + f' Running {batch}')
+    print(10*' ' + f' Running {batch}')
     print(20*'=--=')
-    time.sleep(120)
-    batch += 1
-    
-i = 0
-batch = 0
-for amp in amps:
-    # calculating metrics
-    for subbatch in range(32):
-        os.system(f'python3 preprocessing.py {v} {batch} {subbatch} {delta_max}')
-        # readpickle to create space param .pkl
-        os.system(f'python3 readpickle.py {v} {batch} {subbatch} {i}')
-        i+=1
     batch+=1
+
+# batch = 1
+# for cpn in coresPerNode:
+#     os.system(f'python3 preprocessing.py {v} {batch} 0 {delta_max}')
+#     batch += 1
+    
+# i = 0
+# batch = 0
+# for amp in amps:
+#     # calculating metrics
+#     for subbatch in range(1,32):
+#         os.system(f'python3 preprocessing.py {v} {batch} {subbatch} {delta_max}')
+#         # readpickle to create space param .pkl
+#         # os.system(f'python3 readpickle.py {v} {batch} {subbatch} {i}')
+#         i+=1
+#     batch+=1

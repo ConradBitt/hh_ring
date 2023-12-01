@@ -26,7 +26,8 @@ batch_number = 'batch'+str(batch.zfill(4))
 subbatch = sys.argv[3]
 subbatch_number = '0_'+str(subbatch)
 delta = int(sys.argv[4])
-file = f'../data/v{v}_{batch_number}/v{v}_{batch_number}_{subbatch_number}'
+# file = f'../data/v{v}_{batch_number}/v{v}_{batch_number}_{subbatch_number}'
+file = f'../data/v{v}_{batch_number}/v{v}_{batch_number}_0'
 
 # file = f'../data/v1_batch0/v1_batch0'
 delta = 5
@@ -41,7 +42,7 @@ try:
         data = pickle.load(f)
 except Exception as e:
     # write erro at prerpocessing.err
-    with open('../data/preprocessing.err', 'a') as infos:
+    with open(file[:9]+'preprocessing.err', 'a') as infos:
         infos.writelines(f'Error: {e}'+'\n')
     sys.exit()
 

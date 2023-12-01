@@ -53,11 +53,12 @@ cfg.allcells = ['sPY']
 #------------------------------------------------------------------------------
 
 cfg.cellNumber = 256
-cfg.neuronsPerCore = 8
-cfg.coresPerNode = int(np.ceil(cfg.cellNumber / cfg.neuronsPerCore))
+# cfg.neuronsPerCore = 8
+cfg.coresPerNode = 16 # int(np.ceil(cfg.cellNumber / cfg.neuronsPerCore))
+cfg.neuronsPerCore = cfg.cellNumber / cfg.coresPerNode
 
 cfg.gex = 0.00025 # default 0.0005
-cfg.n_neighbors = 48 #int(0.3 * cfg.cellNumber) # all conetions 
+cfg.n_neighbors = 30 #int(0.3 * cfg.cellNumber) # all conetions 
 cfg.amp = 0.170
 cfg.synapse_delay = cfg.dt + 1e-5 #0.05 #1 #0.01
 
@@ -69,10 +70,10 @@ for cell in cfg.allcells:
 #------------------------------------------------------------------------------
 # cfg.analysis['plotTraces'] = {'include': cfg.allpops, 'saveFig': True, 'showFig': False, 'oneFigPer':'trace', 'axis': False, 'subtitles':False,'timeRange': [cfg.duration-5000,cfg.duration], 'legend':False, 'overlay':False, 'figSize':(36, 24), 'fontSize':2}
 cfg.analysis['plotRaster'] = {'include': cfg.allpops, 'saveFig': True, 'showFig': False, 'popRates': False, 'orderInverse': True, 'timeRange': [cfg.duration-2000,cfg.duration],'figSize': (24,12), 'lw': 0.3, 'markerSize':10, 'marker': '.', 'dpi': 300}
-# cfg.analysis['plot2Dnet']   = {
-#     'include': cfg.allpops , 'saveFig': True, 'showFig': False, 'showConns': True,
-#     'figSize': (12,12), 'view': 'xz', 'fontSize':12,
-#     }
+cfg.analysis['plot2Dnet']   = {
+    'include': cfg.allpops , 'saveFig': True, 'showFig': False, 'showConns': True,
+    'figSize': (12,12), 'view': 'xz', 'fontSize':12,
+    }
 
 #------------------------------------------------------------------------------
 # Current inputs  
@@ -109,7 +110,7 @@ cfg.saveFolder = '../data/'+cfg.simLabel
 # cfg.filename =                	## Set file output name
 cfg.savePickle = True         	## Save pkl file
 cfg.saveJson = False           	## Save json file
-cfg.saveDataInclude = ['simConfig', 'netParams', 'simData']#, 'net'] ## 
+cfg.saveDataInclude = ['simConfig', 'netParams', 'simData', 'net'] ## 
 cfg.backupCfgFile = None 		##  
 cfg.gatherOnlySimData = False	##  
 cfg.saveCellSecs = False			##  

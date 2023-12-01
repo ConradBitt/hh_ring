@@ -117,7 +117,7 @@ netParams.connParams['initialrandom'] = {
     'preConds': {'pop': 'initialspikes'},
     'postConds': {'pop': cfg.allpops},
     'synMech': 'AMPA', # target synaptic mechanism
-    'probability': 1., 
+    'probability': 0.5, # 1., 
     'weight': 0.0001, 
     'delay': cfg.synapse_delay
     }  
@@ -200,4 +200,11 @@ netParams.description = f"""
         - nodes = 16
         - 8 neurons per core
         - cores per node 32
+
+- v6    ** Locking for a chimera states in to frequency range (max 200hz)
+        - Network with 200 neurons, duration 25000ms
+        - synapse_delay: 0.05
+        - cfg.gex = 0.000250
+        - ncons per neuron = 30
+        - neuronsPerCore: 
 """

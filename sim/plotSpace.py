@@ -121,9 +121,9 @@ def plot_params():
     plt.rcParams['pcolor.shading'] = 'nearest'
 plot_params()
 
-v = 3
+v = 5
 resol = 32
-with open(f'../data3_16npc/space_param_V{v}.pkl', 'rb') as f:
+with open(f'../data/space_param_V{v}.pkl', 'rb') as f:
     data_space_param = pickle.load(f)
 
 # cellNumber = data_space_param['infosNetWork']['cellNumber']
@@ -157,8 +157,8 @@ print(mean_LOP_arr.shape)
 
 fig, ax = plt.subplots(ncols=2, nrows=2, figsize=(8,6))
 fig.set_tight_layout(20)
-fig.suptitle(f'Rede de 256 neurônios, transiente 24s, amostra 1s,\n cons por neuronio 52 '\
-             +f'Neuronios por core: 16')
+fig.suptitle('Rede de 256 neurônios, transiente 24s, amostra 1s,\n $g_{ex} = 250 \\mu S/cm²$ '\
+             +f'Neuronios por core: 8')
 
 axis_gex = [round(1e-5*vv, 6) for vv in np.linspace(10, 45, 32)]
 axis_amp = np.round(np.linspace(0.14, 0.3, 32),4)
@@ -191,15 +191,15 @@ hm02 = ax[1][1].pcolor(ig, tg, mean_cv_arr, cmap='gnuplot')
 cbar02 = fig.colorbar(hm02, ax=ax[1][1])#, cax=cax1, format=formater)
 cbar02.set_label(r'$CV$')
 
-# for linha in ax:
-#     for coluna in linha:
-#         coluna.set_ylim(0,0.4)
-#         coluna.set_xlim(1e-5,35e-5)
+for linha in ax:
+    for coluna in linha:
+        # coluna.set_ylim(0,0.3)
+        coluna.set_xlim(1e-4,4e-4)
 
 ax[0][0].set_ylabel('$I_{inj}$')
 ax[1][0].set_ylabel('$I_{inj}$')
 ax[1][0].set_xlabel('$g_{ex}$')
 ax[1][1].set_xlabel('$g_{ex}$')
 
-plt.savefig('../data3_16npc/'+f'SpaceParam_{v}_amp_gex_1.png', dpi=600, bbox_inches='tight', format='png')
+plt.savefig('../data/'+f'SpaceParam_{v}_amp_gex_1.png', dpi=600, bbox_inches='tight', format='png')
 plt.show()

@@ -32,10 +32,18 @@ theta = np.linspace(0, 2*np.pi, cfg.cellNumber)  # angle
 x = center[0] + r*np.cos(theta) # x-values in um
 z = center[1] + r*np.sin(theta) # z-values in um
 
-print(sim.rank,sim.net.cells[0].tags)
+print(20*'=--=')
+print(10*' ' + f' Ajusting networt')
+print(20*'----')
+
+print("print(sim.rank,sim.nhosts, len(sim.net.cells), sim.net.cells[0].tags)")
+print(sim.rank, sim.nhosts, len(sim.net.cells), sim.net.cells[0].tags)
 for ii, metype in enumerate(sim.net.cells):
+    ## ii ii is within range 0 to neuronsPerCore
+    ## sim.rank have a neuronsPerCore structures 
     # verificar a estrutura da rede com e sem o código abaixo
-    i = cfg.neuronsPerCore * int(sim.rank) + ii
+    # i =  sim.rank * len(sim.net.cells) + ii # indice global do neuronio
+    i =  sim.rank * len(sim.net.cells) + ii
 
     # looping to change the spatial coordinates of neurons
     metype.tags['x'] = x[i]     # x positions in um
@@ -44,7 +52,11 @@ for ii, metype in enumerate(sim.net.cells):
     metype.tags['xnorm'] = x[i]/100.0
     metype.tags['ynorm'] = 0.5
     metype.tags['znorm'] = z[i]/100.0
-print(sim.rank,sim.net.cells[0].tags)
+
+
+print(20*'----')
+print(sim.rank, sim.nhosts, len(sim.net.cells), sim.net.cells[0].tags)
+print(20*'----')
 
 
 sim.net.connectCells()            			# create connections between cells based on params

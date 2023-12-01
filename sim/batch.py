@@ -24,13 +24,25 @@ def custom():
     
     # params[('seeds', 'conn')] =  [1] 
     # params[('IClamp0', 'amp')] = np.linspace(0.14,0.2,25)#[0.08, 0.10, 0.12] 
-    params[('IClamp0', 'amp')] = [float(sys.argv[3])]
-    # params[('gex')] = [round(1e-5*vv, 6) for vv in np.linspace(10, 45, 32)]
-    params[('n_neighbors')] = np.arange(2,66,2)
+    # params[('IClamp0', 'amp')] = [float(sys.argv[3])]
     
+    # params[('n_neighbors')] = np.arange(2,66,2)
+
+    ############################
+    # ~>   Teste Cores por Node
+    # params[('coresPerNode')] = [sys.argv[3]]
+    # params[('gex')] = [round(1e-5*vv, 6) for vv in np.linspace(10, 45, 32)]
+    
+    ############################
+    # ~>   Espaço parâmetros 
     # params[('gex')] = [float(sys.argv[3])]
     # arg_conns = [value.replace('[','').replace(']','').replace(',','').replace("'",'') for value in sys.argv[4:]]
     # params[('n_neighbors')] = np.array([int(value) for value in arg_conns if value != '']).astype('int64')
+
+    ############################
+    # ~>   Teste mpi_bulletin
+    params[('gex')] = [0.0005, 0.0010, 0.0015, 0.0020]
+    params[('IClamp0', 'amp')] = [0.08, 0.10, 0.12] 
 
     b = Batch(params=params, netParamsFile='netParams.py', cfgFile='cfg.py')
 
@@ -54,7 +66,7 @@ def setRunCfg(b, type='mpi_bulletin'):
 
     elif type=='mpi_direct2':
         b.runCfg = {'type': 'mpi_direct',
-            'mpiCommand': 'mpirun -n 12 ./x86_64/special -mpi -python init.py', # --use-hwthread-cpus
+            'mpiCommand': f'mpirun -n {int(cfg.coresPerNode)} ./x86_64/special -mpi -python init.py', # --use-hwthread-cpus
             'skip': True}
 
     elif type=='hpc_slurm_gcp':
@@ -73,10 +85,10 @@ def setRunCfg(b, type='mpi_bulletin'):
         b.runCfg = {'type': 'hpc_slurm',
                     'allocation': 'TG-IBN140002',
                     'partition': 'compute',
-                    'walltime': '00:10:00',
+                    'walltime': '04:10:00',
                     'nodes': 1,
                     # 'coresPerNode': 20,
-                    'coresPerNode': int(cfg.coresPerNode),
+                    'coresPerNode': int(cfg.coresPerNode), #int(sys.argv[3]), #int(cfg.coresPerNode),
                     # 'email': 'conrad.bittencourt@gmail.com',
                     'folder': '/home/fborges/hh_ring/sim/',
                     'script': 'init.py',
@@ -102,26 +114,26 @@ def setRunCfg(b, type='mpi_bulletin'):
 # ----------------------------------------------------------------------------------------------
 # Main code
 # ----------------------------------------------------------------------------------------------
-if __name__ == '__main__': 
-    b = custom() #
-    # 
-    version_number = sys.argv[1]
-    batch_number = sys.argv[2]
-    batch_number = batch_number.zfill(4) # fill string with zeros.
-
-    b.batchLabel = f'v{version_number}_batch{batch_number}' #cfg.simLabel  # default: 'v0_batch0'
-        
-    cfg.simLabel = b.batchLabel
-    b.saveFolder = '../data/'+b.batchLabel
-    b.method = 'grid'
-    setRunCfg(b, 'hpc_slurm_Expanse')     # setRunCfg(b, 'mpi_bulletin')
-    b.run() # run batch
-
 # if __name__ == '__main__': 
 #     b = custom() #
+#     # 
+#     version_number = sys.argv[1]
+#     batch_number = sys.argv[2]
+#     batch_number = batch_number.zfill(4) # fill string with zeros.
 
-#     b.batchLabel = 'v1_batch4'  
+#     b.batchLabel = f'v{version_number}_batch{batch_number}' #cfg.simLabel  # default: 'v0_batch0'
+        
+#     cfg.simLabel = b.batchLabel
 #     b.saveFolder = '../data/'+b.batchLabel
 #     b.method = 'grid'
-#     setRunCfg(b, 'hpc_slurm_Expanse') # hpc_slurm_Expanse  setRunCfg(b, 'hpc_slurm_Cineca_debug') # setRunCfg(b, 'hpc_slurm_Expanse')
+#     setRunCfg(b, 'hpc_slurm_Expanse')     # setRunCfg(b, 'mpi_bulletin')
 #     b.run() # run batch
+
+if __name__ == '__main__': 
+    b = custom() #
+
+    b.batchLabel = 'v1_batch1'  
+    b.saveFolder = '../data/'+b.batchLabel
+    b.method = 'grid'
+    setRunCfg(b, 'mpi_direct2') # hpc_slurm_Expanse  setRunCfg(b, 'hpc_slurm_Cineca_debug') # setRunCfg(b, 'hpc_slurm_Expanse')
+    b.run() # run batch
