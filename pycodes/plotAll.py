@@ -101,6 +101,7 @@ def plotAll(t_peaks, last_phases, lop_sample, mean_lop, last_lop, t_phase, gop_s
 v = str(sys.argv[1])
 i = str(sys.argv[2])
 j = str(sys.argv[3])
+<<<<<<< HEAD
 # batch = sys.argv[2]
 # batch_number = 'batch'+str(batch.zfill(4))
 # subbatch = sys.argv[3]
@@ -108,6 +109,10 @@ j = str(sys.argv[3])
 # file = f'../data3/v{v}_{batch_number}/v{v}_{batch_number}_{subbatch_number}'
 folder = f'../figures/'
 file = f'../data/v{v}_batch1/v{v}_batch1_{i}_{j}'
+=======
+folder = f'../figures/'
+file = f''
+>>>>>>> 92fe0a5 (update pc danilo)
 
 # file = f'../data/v{v}_batch{batch}/v{v}_batch{batch}_0_{subbatch}'
 # file = f'../data/v0_batch0/v0_batch0'
