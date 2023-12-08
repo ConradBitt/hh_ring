@@ -16,7 +16,9 @@ from netpyne import sim
 import pickle, json
 import numpy as np
 import os
+import datetime
 
+inicio = datetime.datetime.now()
 # cfg, netParams = sim.readCmdLineArgs(simConfigDefault='cfg.py', netParamsDefault='netParams.py')
 cfg, netParams = sim.readCmdLineArgs()
 
@@ -70,3 +72,10 @@ sim.analysis.plotData()         			# plot spike raster etc
 # sim.analysis.plotSpikeStats(include=cfg.allpops, saveData='../data/'+cfg.simLabel[0:12]+'/'+cfg.simLabel + '_rate.json', stats=['rate'], saveFig=True)
 # sim.analysis.plotSpikeStats(include=cfg.allpops, saveData='../data/'+cfg.simLabel[0:12]+'/'+cfg.simLabel + '_CV.json', stats=['isicv'], saveFig=True)
 # sim.analysis.plotSpikeStats(include=cfg.allpops, saveData='../data/'+cfg.simLabel[0:12]+'/'+cfg.simLabel + '_sync.json', stats=['sync'], saveFig=True);
+
+
+fim = datetime.datetime.now()
+
+print(20*'=--=')
+print(10*' ' + f'Total time running simulation: {fim - inicio}')
+print(20*'----')
