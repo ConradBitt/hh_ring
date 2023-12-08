@@ -20,14 +20,21 @@ import metrics
 import datetime
 
 # read variables of file
+# v = str(sys.argv[1])
+# batch = sys.argv[2]
+# batch_number = 'batch'+str(batch.zfill(4))
+# subbatch = sys.argv[3]
+# subbatch_number = '0_'+str(subbatch)
+# # delta = int(sys.argv[4])
+# # file = f'../data/v{v}_{batch_number}/v{v}_{batch_number}_{subbatch_number}'
+# # file = f'../data/v{v}_{batch_number}/v{v}_{batch_number}_0'
+
+# Captura argumentos da linha de comando
 v = str(sys.argv[1])
-batch = sys.argv[2]
-batch_number = 'batch'+str(batch.zfill(4))
-subbatch = sys.argv[3]
-subbatch_number = '0_'+str(subbatch)
-delta = int(sys.argv[4])
-# file = f'../data/v{v}_{batch_number}/v{v}_{batch_number}_{subbatch_number}'
-file = f'../data/v{v}_{batch_number}/v{v}_{batch_number}_0'
+i = int(sys.argv[2])
+j = int(sys.argv[3])
+
+file = f'../data/v{v}_batch1/v{v}_batch1_{i}_{j}'
 
 # file = f'../data/v1_batch0/v1_batch0'
 delta = 5
@@ -42,7 +49,7 @@ try:
         data = pickle.load(f)
 except Exception as e:
     # write erro at prerpocessing.err
-    with open(file[:9]+'preprocessing.err', 'a') as infos:
+    with open('../data/preprocessing.err', 'a') as infos:
         infos.writelines(f'Error: {e}'+'\n')
     sys.exit()
 

@@ -17,7 +17,7 @@ readpickles = """#!/bin/bash
 
 resolution_space_param = 32 # 32 x 32
 
-v = 2
+v = 1
 
 # arrays to space param
 space_param = {
@@ -42,7 +42,7 @@ indice = 0
 for i in range(0, resolution_space_param):
     for j in range(0, resolution_space_param):
         # readpickles += readpickle(2, i, j, indice) + ' &\n'
-        os.system(readpickle(2, i, j, indice))
+        os.system(readpickle(1, i, j, indice))
         indice+=1
 
 # with open('readpickles.sh', 'w+') as rodar_sh:
