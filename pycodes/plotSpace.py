@@ -104,6 +104,8 @@ import numpy as np
 from matplotlib import pyplot as plt
 import matplotlib.colors as mcolors
 from matplotlib.colors import LinearSegmentedColormap, ListedColormap
+import locale
+# locale.setlocale(locale.LC_ALL, 'de_DE')     
 
 cores = list(mcolors.TABLEAU_COLORS.keys())
 cores = [cor.split(':')[-1] for cor in cores]
@@ -117,13 +119,14 @@ def plot_params():
     plt.rc('legend', fontsize=8)
     plt.rc('lines', linewidth=1.0)
     plt.rcParams["axes.formatter.limits"] = (-3, 4)
+    plt.rcParams['axes.formatter.use_locale'] = True
     # plt.rc('font', **{'family': 'serif', 'serif': ['Computer Modern']})
     plt.rcParams['pcolor.shading'] = 'nearest'
 plot_params()
 
-v = 5
+v = 2
 resol = 32
-with open(f'../data/space_param_V{v}.pkl', 'rb') as f:
+with open(f'../data/v{v}_batch1/space_param_v{v}_batch1.pkl', 'rb') as f:
     data_space_param = pickle.load(f)
 
 # cellNumber = data_space_param['infosNetWork']['cellNumber']
@@ -132,7 +135,7 @@ with open(f'../data/space_param_V{v}.pkl', 'rb') as f:
 # coresPerNode = data_space_param['infosNetWork']['coresPerNode']
 
 gex = data_space_param['gex']
-# neighbours = data_space_param['neighbours']
+neighbours = data_space_param['neighbours']
 amp = data_space_param['amp']
 mean_LOP = data_space_param['mean_LOP']
 mean_GOP = data_space_param['mean_GOP']
@@ -147,25 +150,19 @@ mean_freq_arr = np.array(np.array_split(data_space_param['mean_freq'], resol))
 # axis
 axis_gex = np.array(list(set(gex)))#.astype(int)
 axis_amp = np.array(list(set(amp)))
-# axis_neighbours = np.array(list(set(neighbours)))#.astype(float)
+axis_neighbours = np.array(list(set(neighbours)))#.astype(float)
 axis_gex.sort()
 axis_amp.sort()
-# axis_neighbours.sort()
+axis_neighbours.sort()
 
 
 print(mean_LOP_arr.shape)
 
 fig, ax = plt.subplots(ncols=2, nrows=2, figsize=(8,6))
 fig.set_tight_layout(20)
-fig.suptitle('Rede de 256 neurônios, transiente 24s, amostra 1s,\n $g_{ex} = 250 \\mu S/cm²$ '\
-             +f'Neuronios por core: 8')
+fig.suptitle('Rede de 256 neurônios, transiente 24s, amostra 1s,\n $g_{ex} = 250 \\mu S/cm²$')
 
-axis_gex = [round(1e-5*vv, 6) for vv in np.linspace(10, 45, 32)]
-axis_amp = np.round(np.linspace(0.14, 0.3, 32),4)
-# p = np.linspace((32/(8*256)), 0.40, 32)
-# axis_neighbours = np.array([x+1 if x % 2 != 0 else x for x in (256 * p).astype(int)],dtype=int)
-# tg, ig = np.meshgrid((1/256)*axis_neighbours, axis_gex)
-tg, ig = np.meshgrid(axis_amp, axis_gex)
+tg, ig = np.meshgrid(axis_amp[1:], axis_gex[1:])
 
 # ax[0][0].set_title('$\overline{GOP(t)}$')
 ax[0][0].set_title('(A)', loc='left',pad=10)
@@ -191,15 +188,15 @@ hm02 = ax[1][1].pcolor(ig, tg, mean_cv_arr, cmap='gnuplot')
 cbar02 = fig.colorbar(hm02, ax=ax[1][1])#, cax=cax1, format=formater)
 cbar02.set_label(r'$CV$')
 
-for linha in ax:
-    for coluna in linha:
-        # coluna.set_ylim(0,0.3)
-        coluna.set_xlim(1e-4,4e-4)
+# for linha in ax:
+#     for coluna in linha:
+#         coluna.set_ylim(0.16,0.2)
+#         coluna.set_xlim(2e-4,)
 
-ax[0][0].set_ylabel('$I_{inj}$')
-ax[1][0].set_ylabel('$I_{inj}$')
+ax[0][0].set_ylabel('$I_{ext}$')
+ax[1][0].set_ylabel('$I_{ext}$')
 ax[1][0].set_xlabel('$g_{ex}$')
 ax[1][1].set_xlabel('$g_{ex}$')
 
-plt.savefig('../data/'+f'SpaceParam_{v}_amp_gex_1.png', dpi=600, bbox_inches='tight', format='png')
+plt.savefig(f'../data/v{v}_batch1/'+f'SpaceParam_{v}_neigh_gex.png', dpi=600, bbox_inches='tight', format='png')
 plt.show()

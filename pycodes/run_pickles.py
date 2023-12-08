@@ -40,7 +40,7 @@ coresPerNode = [2, 4, 8]
 
 
 batch = 1
-v = 6
+v = 1
 delta_max = 5
 
 
@@ -58,38 +58,36 @@ space_param = {
 }
 
 # # Cria dicionário 
-# with open(f'../data/space_param_V{v}.pkl', 'wb') as handle:
-#     pickle.dump(space_param, handle, protocol=pickle.HIGHEST_PROTOCOL)
+with open(f'../data/space_param_v{v}_batch1.pkl', 'wb') as handle:
+    pickle.dump(space_param, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
 
 command = 'ipython batch.py {v} {batch} {neuronPerCore}'
 with open('../data/batchs.infos', 'a') as infos:
     infos.writelines(command+'\n')
 
-i = 0
-for cpn in coresPerNode:
-    command = f'ipython batch.py {v} {batch} {cpn}'
-    with open('../data/batchs.infos', 'a') as infos:
-        infos.writelines(command+'\n')
-    os.system(command)
+# i = 0
+# for cpn in coresPerNode:
+#     command = f'ipython batch.py {v} {batch} {cpn}'
+#     with open('../data/batchs.infos', 'a') as infos:
+#         infos.writelines(command+'\n')
+#     os.system(command)
     
-    print(20*'=--=')
-    print(10*' ' + f' Running {batch}')
-    print(20*'=--=')
-    batch+=1
+#     print(20*'=--=')
+#     print(10*' ' + f' Running {batch}')
+#     print(20*'=--=')
+#     batch+=1
 
 # batch = 1
 # for cpn in coresPerNode:
 #     os.system(f'python3 preprocessing.py {v} {batch} 0 {delta_max}')
 #     batch += 1
     
-# i = 0
-# batch = 0
-# for amp in amps:
-#     # calculating metrics
-#     for subbatch in range(1,32):
-#         os.system(f'python3 preprocessing.py {v} {batch} {subbatch} {delta_max}')
-#         # readpickle to create space param .pkl
-#         # os.system(f'python3 readpickle.py {v} {batch} {subbatch} {i}')
-#         i+=1
-#     batch+=1
+indice = 0
+batch = 0
+for i in range(32):
+    # readfiles
+    for j in range(32):
+        # readpickle to create space param .pkl
+        os.system(f'python3 readpickle.py {v} {i} {j} {indice}')
+        indice+=1

@@ -95,7 +95,7 @@ for d in deltas:
 data['LOP_delta'] = lops
 
 print('~ Counting LOP under threshold:')
-thresholds = [0.75, 0.85, 0.95, 1.]
+thresholds = [0.75, 0.8, 0.85, 0.9, 0.95, 1.]
 n_coerentes = metrics.countNeuronsUnderThr(lops[delta], thresholds)
 data['Count_LOP_Under_Trh'] = {}
 for i, thr in enumerate(thresholds):

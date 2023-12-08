@@ -5,6 +5,9 @@ import matplotlib.font_manager
 import os
 import sys
 
+import locale
+# locale.setlocale(locale.LC_ALL, 'pt_BR.UTF-8')  
+
 def plot_params():
     # plt.rc('text', usetex=True)
     plt.rc('font', size=13)
@@ -14,6 +17,7 @@ def plot_params():
     plt.rc('legend', fontsize=8)
     plt.rc('lines', linewidth=1.0)
     plt.rcParams["axes.formatter.limits"] = (-3, 4)
+    plt.rcParams['axes.formatter.use_locale'] = True
     # plt.rc('font', **{'family': 'serif', 'serif': ['Computer Modern']})
     plt.rcParams['mathtext.fontset'] = 'cm'
     plt.rcParams['font.family'] = 'STIXGeneral'
@@ -95,13 +99,15 @@ def plotAll(t_peaks, last_phases, lop_sample, mean_lop, last_lop, t_phase, gop_s
     plt.savefig(folder+f'AnalysisV{v}_n{len(n)}_{gex}Scm2_{amp:.1f}pA_r{neighbours/cellNumber:.2f}neigh_{int(freq_mean)}Hz.png', dpi=600, bbox_inches='tight', format='png')
 
 v = str(sys.argv[1])
-batch = sys.argv[2]
-batch_number = 'batch'+str(batch.zfill(4))
-subbatch = sys.argv[3]
-subbatch_number = '0_'+str(subbatch)
+i = str(sys.argv[2])
+j = str(sys.argv[3])
+# batch = sys.argv[2]
+# batch_number = 'batch'+str(batch.zfill(4))
+# subbatch = sys.argv[3]
+# subbatch_number = '0_'+str(subbatch)
 # file = f'../data3/v{v}_{batch_number}/v{v}_{batch_number}_{subbatch_number}'
-folder = f'../data/v{v}_{batch_number}/'
-file = f'../data/v{v}_{batch_number}/v{v}_{batch_number}_0'
+folder = f'../figures/'
+file = f'../data/v{v}_batch1/v{v}_batch1_{i}_{j}'
 
 # file = f'../data/v{v}_batch{batch}/v{v}_batch{batch}_0_{subbatch}'
 # file = f'../data/v0_batch0/v0_batch0'
