@@ -57,9 +57,9 @@ import seaborn as sns
 plot_params()
 cm = 1/2.54
 
-fig, axs = plt.subplots(ncols=2, nrows=2, figsize=(25*cm, 10*cm))
-gs = gridspec.GridSpec(ncols=2, nrows=2, width_ratios=[2,1.5], height_ratios=[1,1])
-fig.set_tight_layout(20)
+fig, axs = plt.subplots(ncols=2, nrows=2, figsize=(20*cm, 10*cm))
+gs = gridspec.GridSpec(ncols=2, nrows=2, width_ratios=[2,1.8])
+fig.set_tight_layout(10)
 
 ax1 = plt.subplot(gs[:, 1])
 
@@ -78,10 +78,10 @@ axs[1][0].set_xlabel('Tempo (ms)')
 
 
 
-ax1.scatter(correntes, frq_hh, color='blue', s=1)
-ax1.scatter(correntes, frq_ym, color='orange', s=1)
-sns.lineplot(x = correntes, y = frq_hh, color='blue', ax=ax1, label='Modelo Hodgkin-Huxley')
-sns.lineplot(x = correntes, y = frq_ym, color='red', ax=ax1 , label='Modelo Yamada')
+ax1.scatter(correntes*1000, frq_hh, color='blue', s=1)
+ax1.scatter(correntes*1000, frq_ym, color='orange', s=1)
+sns.lineplot(x = correntes*1000, y = frq_hh, color='blue', ax=ax1, label='Modelo Hodgkin-Huxley')
+sns.lineplot(x = correntes*1000, y = frq_ym, color='red', ax=ax1 , label='Modelo Yamada')
 
 ax1.spines['right'].set_visible(False)
 ax1.spines['top'].set_visible(False)
@@ -89,6 +89,8 @@ ax1.spines['top'].set_visible(False)
 ax1.set_title('(C)', loc='left')
 ax1.set_ylabel('Frequência (Hz)')
 ax1.set_xlabel('$I_{ext}$ ($p$A)')
+
+ax1.set_xlim(0,800)
 
 plt.savefig('dinamica_HH_Yamamada.png', dpi=600, bbox_inches='tight', format='png')
 

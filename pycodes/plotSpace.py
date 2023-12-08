@@ -105,12 +105,8 @@ from matplotlib import pyplot as plt
 import matplotlib.colors as mcolors
 from matplotlib.colors import LinearSegmentedColormap, ListedColormap
 import locale
-<<<<<<< HEAD
-# locale.setlocale(locale.LC_ALL, 'de_DE')     
-=======
 import latex
 locale.setlocale(locale.LC_ALL, 'pt_BR.UTF-8')       
->>>>>>> 92fe0a5 (update pc danilo)
 
 cores = list(mcolors.TABLEAU_COLORS.keys())
 cores = [cor.split(':')[-1] for cor in cores]
@@ -129,17 +125,11 @@ def plot_params():
     plt.rcParams['pcolor.shading'] = 'nearest'
 plot_params()
 
-<<<<<<< HEAD
-v = 2
-resol = 32
-with open(f'../data/v{v}_batch1/space_param_v{v}_batch1.pkl', 'rb') as f:
-=======
 file = 'space_param_v2_batch1_copy'
 
 v = 1
 resol = 32
 with open(f'../results_spaceparams/{file}.pkl', 'rb') as f:
->>>>>>> 92fe0a5 (update pc danilo)
     data_space_param = pickle.load(f)
 
 # cellNumber = data_space_param['infosNetWork']['cellNumber']
@@ -173,13 +163,10 @@ print(mean_LOP_arr.shape)
 
 fig, ax = plt.subplots(ncols=2, nrows=2, figsize=(8,6))
 fig.set_tight_layout(20)
-<<<<<<< HEAD
-fig.suptitle('Rede de 256 neurônios, transiente 24s, amostra 1s,\n $g_{ex} = 250 \\mu S/cm²$')
-=======
 # fig.suptitle('Rede de 256 neurônios, transiente 24s, amostra 1s,\n $g_{ex} = 250 \\mu S/cm²$')
->>>>>>> 92fe0a5 (update pc danilo)
 
-tg, ig = np.meshgrid(axis_amp[1:], axis_gex[1:])
+# tg, ig = np.meshgrid(axis_neighbours[1:]/256, axis_gex[1:])
+tg, ig = np.meshgrid(axis_amp[1:]*1000, axis_gex[1:])
 
 # ax[0][0].set_title('$\overline{GOP(t)}$')
 ax[0][0].set_title('(A)', loc='left',pad=10)
@@ -207,22 +194,16 @@ cbar02.set_label(r'$CV$')
 
 # for linha in ax:
 #     for coluna in linha:
-<<<<<<< HEAD
-#         coluna.set_ylim(0.16,0.2)
-#         coluna.set_xlim(2e-4,)
-=======
-#         coluna.set_ylim(0.05,0.35)
-#         coluna.set_xlim(1e-4,4e-4)
->>>>>>> 92fe0a5 (update pc danilo)
+#         coluna.set_ylim(None,0.4)
+#         coluna.set_xlim(1e-4,3.5e-4)
 
-ax[0][0].set_ylabel('$I_{ext}$')
-ax[1][0].set_ylabel('$I_{ext}$')
-ax[1][0].set_xlabel('$g_{ex}$')
-ax[1][1].set_xlabel('$g_{ex}$')
+ax[0][0].set_ylabel('$I_{ext}$ ($pA$)')
+ax[1][0].set_ylabel('$I_{ext}$ ($pA$)')
 
-<<<<<<< HEAD
-plt.savefig(f'../data/v{v}_batch1/'+f'SpaceParam_{v}_neigh_gex.png', dpi=600, bbox_inches='tight', format='png')
-=======
+# ax[0][0].set_ylabel('$r$')
+# ax[1][0].set_ylabel('$r$')
+ax[1][0].set_xlabel('$g_{ex}$ ($mS/cm²$)')
+ax[1][1].set_xlabel('$g_{ex}$ ($mS/cm²$)')
+
 plt.savefig(f'{file}.png', dpi=600, bbox_inches='tight', format='png')
->>>>>>> 92fe0a5 (update pc danilo)
 plt.show()
