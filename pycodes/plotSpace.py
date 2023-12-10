@@ -103,6 +103,7 @@ import pickle
 import numpy as np
 from matplotlib import pyplot as plt
 import matplotlib.colors as mcolors
+import matplotlib.ticker as plticker
 from matplotlib.colors import LinearSegmentedColormap, ListedColormap
 import locale
 import latex
@@ -125,9 +126,10 @@ def plot_params():
     plt.rcParams['pcolor.shading'] = 'nearest'
 plot_params()
 
-file = 'space_param_v2_batch1_copy'
+
 
 v = 1
+file = f'space_param_v{v}_batch1'
 resol = 32
 with open(f'../results_spaceparams/{file}.pkl', 'rb') as f:
     data_space_param = pickle.load(f)
@@ -165,8 +167,8 @@ fig, ax = plt.subplots(ncols=2, nrows=2, figsize=(8,6))
 fig.set_tight_layout(20)
 # fig.suptitle('Rede de 256 neurônios, transiente 24s, amostra 1s,\n $g_{ex} = 250 \\mu S/cm²$')
 
-# tg, ig = np.meshgrid(axis_neighbours[1:]/256, axis_gex[1:])
-tg, ig = np.meshgrid(axis_amp[1:]*1000, axis_gex[1:])
+tg, ig = np.meshgrid(axis_neighbours[1:]/256, axis_gex[1:])
+# tg, ig = np.meshgrid(axis_amp[1:]*1000, axis_gex[1:])
 
 # ax[0][0].set_title('$\overline{GOP(t)}$')
 ax[0][0].set_title('(A)', loc='left',pad=10)
@@ -192,16 +194,20 @@ hm02 = ax[1][1].pcolor(ig, tg, mean_cv_arr, cmap='gnuplot')
 cbar02 = fig.colorbar(hm02, ax=ax[1][1])#, cax=cax1, format=formater)
 cbar02.set_label(r'$CV$')
 
-# for linha in ax:
-#     for coluna in linha:
-#         coluna.set_ylim(None,0.4)
-#         coluna.set_xlim(1e-4,3.5e-4)
+step_y = plticker.MultipleLocator(base=0.05) # this locator puts ticks at regular intervals
+step_x = plticker.MultipleLocator(base=0.5e-4)
+for linha in ax:
+    for coluna in linha:
+        coluna.yaxis.set_major_locator(step_y)
+        coluna.xaxis.set_major_locator(step_x)
+        coluna.set_ylim(None,0.36)
+        coluna.set_xlim(None,4.e-4)
 
-ax[0][0].set_ylabel('$I_{ext}$ ($pA$)')
-ax[1][0].set_ylabel('$I_{ext}$ ($pA$)')
+# ax[0][0].set_ylabel('$I_{ext}$ ($pA$)')
+# ax[1][0].set_ylabel('$I_{ext}$ ($pA$)')
 
-# ax[0][0].set_ylabel('$r$')
-# ax[1][0].set_ylabel('$r$')
+ax[0][0].set_ylabel('$r$')
+ax[1][0].set_ylabel('$r$')
 ax[1][0].set_xlabel('$g_{ex}$ ($mS/cm²$)')
 ax[1][1].set_xlabel('$g_{ex}$ ($mS/cm²$)')
 

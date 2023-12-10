@@ -102,8 +102,8 @@ def plotAll(t_peaks, last_phases, lop_sample, mean_lop, last_lop, t_phase, gop_s
 v = str(sys.argv[1])
 i = str(sys.argv[2])
 j = str(sys.argv[3])
-folder = f'../figures/'
-file = f''
+folder = f'../figuresV2/'
+file = f'../figuresV2/v{v}_batch1_{i}_{j}'
 
 # file = f'../data/v{v}_batch{batch}/v{v}_batch{batch}_0_{subbatch}'
 # file = f'../data/v0_batch0/v0_batch0'
