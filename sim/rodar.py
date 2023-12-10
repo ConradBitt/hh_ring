@@ -55,8 +55,8 @@ preprocessing = lambda i, j: f'mpiexec -n 1 python3 preprocessing.py {v} {i} {j}
 
 for i in range(resolution_space_param):
     for j in range(resolution_space_param):
-        # rodar += f'{init(i, j)} && {preprocessing(i,j)} &\n'
-        rodar += f'{preprocessing(i,j)} &\n'
+        rodar += f'{init(i, j)} && {preprocessing(i,j)} &\n'
+        # rodar += f'{preprocessing(i,j)} &\n'
 
 rodar = rodar[:-3]  # Remove the trailing '&&'
 with open('rodar.sh', 'w+') as rodar_sh:

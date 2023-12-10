@@ -41,9 +41,9 @@ def custom():
 
     ############################
     # ~>   Teste mpi_bulletin
-    params[('gex')] = [round(1e-5*vv, 6) for vv in np.linspace(10,45,32)]
-    params[('IClamp0', 'amp')] = np.linspace(0.15,0.2,32)
-    # p = np.linspace((32/(4*cfg.cellNumber)), 0.400, 32)
+    params[('gex')] = [round(1e-5*vv, 7) for vv in np.linspace(25,45,32)]
+    params[('IClamp0', 'amp')] = np.round(np.linspace(0.15,0.175,32), 4)
+    # p = np.linspace((32/(4*cfg.cellNumber)), 0.360  , 32)
     # params[('n_neighbors')] = (cfg.cellNumber * p).astype(int) 
 
     b = Batch(params=params, netParamsFile='netParams.py', cfgFile='cfg.py')
@@ -134,7 +134,7 @@ def setRunCfg(b, type='mpi_bulletin'):
 if __name__ == '__main__': 
     b = custom() #
 
-    b.batchLabel = 'v2_batch1'  
+    b.batchLabel = 'v4_batch1'  
     b.saveFolder = '../data/'+b.batchLabel
     b.method = 'grid'
     setRunCfg(b, 'mpi_bulletin') # hpc_slurm_Expanse  setRunCfg(b, 'hpc_slurm_Cineca_debug') # setRunCfg(b, 'hpc_slurm_Expanse')
