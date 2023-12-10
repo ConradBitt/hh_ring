@@ -195,3 +195,19 @@ notebooks/*
 
 
 
+# compilations files
+codes_and_figures/Yamada/x86_64/cadecay_destexhe.c
+codes_and_figures/Yamada/x86_64/cadecay_destexhe.o
+codes_and_figures/Yamada/x86_64/HH_traub.c
+codes_and_figures/Yamada/x86_64/HH_traub.o
+codes_and_figures/Yamada/x86_64/IL_gutnick.c
+codes_and_figures/Yamada/x86_64/IL_gutnick.o
+codes_and_figures/Yamada/x86_64/IM_cortex.c
+codes_and_figures/Yamada/x86_64/IM_cortex.o
+codes_and_figures/Yamada/x86_64/IT_huguenard.c
+codes_and_figures/Yamada/x86_64/IT_huguenard.o
+codes_and_figures/Yamada/x86_64/makemod2c_inc
+codes_and_figures/Yamada/x86_64/mod_func.cpp
+codes_and_figures/Yamada/x86_64/mod_func.o
+codes_and_figures/Yamada/x86_64/special
+codes_and_figures/Yamada/x86_64/special.nrn
