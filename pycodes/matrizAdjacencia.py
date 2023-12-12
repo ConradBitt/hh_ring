@@ -53,9 +53,12 @@ def get_matriz_Adjacência(n, p, numExtraConex = 0):
 
     return conex_smll
 
-nao_local = get_matriz_Adjacência(256, 25, 0)
-aleatoria = get_matriz_Adjacência(256, 0, int(0.25*256))
-small_world = get_matriz_Adjacência(256, 5, int(0.25*256))
+rede = 51
+p = 5
+
+nao_local = get_matriz_Adjacência(rede, p, 0)
+aleatoria = get_matriz_Adjacência(rede, 0, int(0.25*rede))
+small_world = get_matriz_Adjacência(rede, 5, int(0.25*rede))
 
 cm = 1/2.54
 
@@ -73,7 +76,7 @@ ax[2].matshow(small_world, cmap='binary')
 
 for axis in ax:
     axis.xaxis.tick_bottom()
-    axis.set_ylabel('$i$')
-    axis.set_xlabel('$i$')
+    axis.set_xlabel('$j$')
+ax[0].set_ylabel('$n$', rotation=0, labelpad=20)
 
 plt.savefig('matrizAdjacencia.png',  dpi=600, bbox_inches='tight', format='png')

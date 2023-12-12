@@ -6,10 +6,10 @@ import os
 import sys
 
 import locale
-# locale.setlocale(locale.LC_ALL, 'pt_BR.UTF-8')  
+locale.setlocale(locale.LC_ALL, 'pt_BR.UTF-8')  
 
 def plot_params():
-    # plt.rc('text', usetex=True)
+    plt.rc('text', usetex=True)
     plt.rc('font', size=13)
     plt.rc('xtick', labelsize=11)
     plt.rc('ytick', labelsize=11)
@@ -18,9 +18,9 @@ def plot_params():
     plt.rc('lines', linewidth=1.0)
     plt.rcParams["axes.formatter.limits"] = (-3, 4)
     plt.rcParams['axes.formatter.use_locale'] = True
-    # plt.rc('font', **{'family': 'serif', 'serif': ['Computer Modern']})
-    plt.rcParams['mathtext.fontset'] = 'cm'
-    plt.rcParams['font.family'] = 'STIXGeneral'
+    plt.rc('font', **{'family': 'serif', 'serif': ['Computer Modern']})
+    # plt.rcParams['mathtext.fontset'] = 'cm'
+    # plt.rcParams['font.family'] = 'STIXGeneral'
 
 plot_params()
 
