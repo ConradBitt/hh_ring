@@ -39,7 +39,7 @@ fig, ax = plt.subplots(ncols=2, nrows=1, figsize=(25*cm, 10*cm))
 fig.set_tight_layout(20)
 
 
-tg, ig = np.meshgrid(i_exts*1000, gms*100)
+tg, ig = np.meshgrid(i_exts*1000, gms*1e3)
 
 hm00 = ax[0].pcolor(ig, tg, frequencias, cmap='gnuplot2')
 cbar00 = fig.colorbar(hm00, ax=ax[0])#, cax=cax1, format=formater)
@@ -52,17 +52,35 @@ cbar01.set_label(r'$\overline{CV}$')
 ax[0].set_title('(A)', loc='left', pad=20)
 ax[1].set_title('(B)', loc='left', pad=20)
 
-ax[0].set_xlabel('$g_{M}$ ($mS/cm²$)')
-ax[1].set_xlabel('$g_{M}$ ($mS/cm²$)')
+ax[0].set_xlabel('$g_{M}$ ($mS/cm^2$)')
+ax[1].set_xlabel('$g_{M}$ ($mS/cm^2$)')
 
 ax[0].set_ylabel('$I_{ext}$ ($pA$)')
 
 
-ax[0].annotate('(I)', xy=(6e-3,60),  color='white', fontsize=24)
-ax[0].annotate('(II)', xy=(3e-3,160), color='white', fontsize=24)  
+#região (I)
+ax[0].annotate('(I)', xy=(6e-2,120),  color='white', fontsize=24)
+# ax[1].annotate('(I)', xy=(6e-2,120),  color='white', fontsize=24)
 
-ax[1].annotate('(I)', xy=(6e-3,60),  color='white', fontsize=24)
-ax[1].annotate('(II)', xy=(3e-3,160), color='white', fontsize=24)  
+#região (II)
+ax[0].annotate('(II)', xy=(2e-2,140), color='white', fontsize=24)  
+ax[1].annotate('(II)', xy=(2e-2,140), color='white', fontsize=24)  
+
+ax[0].annotate(r'($\alpha$)', xy=(0.1e-2,170), color='black', fontsize=18)
+ax[1].annotate(r'($\alpha$)', xy=(0.1e-2,170), color='white', fontsize=18)  
+
+ax[0].annotate(r'($\beta$)', xy=(3.5e-2,170), color='white', fontsize=18)
+ax[1].annotate(r'($\beta$)', xy=(3.5e-2,170), color='white', fontsize=18)  
+
+ax[0].annotate(r'($\gamma$)', xy=(4.5e-2,170), color='white', fontsize=18)
+ax[1].annotate(r'($\gamma$)', xy=(4.5e-2,170), color='white', fontsize=18)  
+
+# (0.1e-2,170), (4.2e-2,170), (5.6e-2,170)
+# gms*1e3 *e-2
+
+for axis in ax:
+    axis.set_ylim(75,200)
+    axis.set_xlim(None, 5.1e-2)
 
 
 plt.savefig('gm_iext_frequencia_yamada.png', dpi=600, bbox_inches='tight', format='png')
