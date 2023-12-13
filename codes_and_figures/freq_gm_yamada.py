@@ -33,19 +33,21 @@ gms = dados['gms']
 freqs_yamada_hz = dados['freqs_yamada_hz']
 
 cm = 1/2.54
-fig, ax = plt.subplots(figsize=(10*cm,5*cm))
+fig, ax = plt.subplots(figsize=(10*cm,8*cm))
 ax.grid(alpha=0.3)
-ax.scatter(x = gms, y = freqs_yamada_hz, alpha=0.1, s=2)
-ax.scatter(x = gms[300], y = freqs_yamada_hz[300], color = 'green', label='$g_{m}$ fixo neste trabalho', s=5)
-ax.scatter(x = gms[0], y = freqs_yamada_hz[0], color = 'red', label='Modelo Hodgkin-Huxley em $I_M$', s=5 )
+ax.scatter(x = gms*1e5, y = freqs_yamada_hz, alpha=0.1, s=2)
+ax.scatter(x = gms[350]*1e5, y = freqs_yamada_hz[350], color = 'green', label='$g_{m}$ fixo neste trabalho', s=5)
+ax.scatter(x = gms[0]*1e5, y = freqs_yamada_hz[0], color = 'red', label='Modelo Hodgkin-Huxley sem $I_M$', s=5 )
 ax.set_ylabel('Frequência (Hz)')
-ax.set_xlabel('$g_{m}$ ($\mu$ S/mm²)')
+ax.set_xlabel('$g_{m}$ ($m$ S/mm²)')
+ax.set_xticklabels(["", "0", "0,01", "0,02", "0,03", "0,04", "0,05"])
 
 ax.spines['right'].set_visible(False, )
 ax.spines['top'].set_visible(False)
-ax.set_xlim(-0.05e-5,0.5*10e-5)
+# ax.set_xlim(-0.05e-5,0.5*10e-5)
+ax.set_xlim(-0.05, 5.5)
 ax.legend()
 
-ax.set_title('(A)', fontsize=20, pad=20, loc='left')
+ax.set_title('(E)', fontsize=20, pad=20, loc='left')
 
 plt.savefig('gm_freq_YamadaHH.png', dpi=600, bbox_inches='tight', format='png')
