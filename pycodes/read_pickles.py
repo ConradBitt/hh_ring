@@ -17,7 +17,7 @@ readpickles = """#!/bin/bash
 
 resolution_space_param = 32 # 32 x 32
 
-v = 1
+v = 4
 
 # arrays to space param
 space_param = {
@@ -29,6 +29,12 @@ space_param = {
     'mean_freq': np.zeros(resolution_space_param * resolution_space_param),
     'mean_cv': np.zeros(resolution_space_param * resolution_space_param),
     'cv_lop':np.zeros(resolution_space_param * resolution_space_param),
+    'cluth75': np.zeros(resolution_space_param * resolution_space_param),
+    'cluth80': np.zeros(resolution_space_param * resolution_space_param),
+    'cluth85': np.zeros(resolution_space_param * resolution_space_param),
+    'cluth90': np.zeros(resolution_space_param * resolution_space_param),
+    'cluth95': np.zeros(resolution_space_param * resolution_space_param),
+    'cluth100': np.zeros(resolution_space_param * resolution_space_param),
 }
 
 # # Cria dicionário 
@@ -42,7 +48,7 @@ indice = 0
 for i in range(0, resolution_space_param):
     for j in range(0, resolution_space_param):
         # readpickles += readpickle(2, i, j, indice) + ' &\n'
-        os.system(readpickle(1, i, j, indice))
+        os.system(readpickle(v, i, j, indice))
         indice+=1
 
 # with open('readpickles.sh', 'w+') as rodar_sh:

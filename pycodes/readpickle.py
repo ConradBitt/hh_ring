@@ -32,6 +32,13 @@ try:
     mean_freq = np.mean(arq_resultados['freq_bar'])
     mean_cv = np.mean(arq_resultados['cv'])
     cv_lop = arq_resultados['cv_LOP_delta']
+    cluth75 = arq_resultados['Count_LOP_Under_Trh'][0.75]
+    cluth80 = arq_resultados['Count_LOP_Under_Trh'][0.80]
+    cluth85 = arq_resultados['Count_LOP_Under_Trh'][0.85]
+    cluth90 = arq_resultados['Count_LOP_Under_Trh'][0.90]
+    cluth95 = arq_resultados['Count_LOP_Under_Trh'][0.95]
+    cluth100 = arq_resultados['Count_LOP_Under_Trh'][0.1]
+
 except KeyError as e:
     with open('../data/readpickle.key_err', 'a') as f:
         f.writelines(f'Errors: {file} | Error: {e} \n')
@@ -54,6 +61,12 @@ except KeyError as e:
     mean_freq = np.mean(arq_resultados['freq_bar'])
     mean_cv = np.mean(arq_resultados['cv'])
     cv_lop = arq_resultados['cv_LOP_delta']
+    cluth75 = arq_resultados['Count_LOP_Under_Trh'][0.75]
+    cluth80 = arq_resultados['Count_LOP_Under_Trh'][0.80]
+    cluth85 = arq_resultados['Count_LOP_Under_Trh'][0.85]
+    cluth90 = arq_resultados['Count_LOP_Under_Trh'][0.90]
+    cluth95 = arq_resultados['Count_LOP_Under_Trh'][0.95]
+    cluth100 = arq_resultados['Count_LOP_Under_Trh'][0.1]
 
 
 # Tenta abrir o arquivo de espaço de parâmetros, cria um novo se não existir
@@ -75,6 +88,12 @@ space_param['mean_LOP'][indice] = mean_LOP
 space_param['mean_freq'][indice] = mean_freq
 space_param['mean_cv'][indice] = mean_cv
 space_param['cv_lop'][indice] = cv_lop
+space_param['cluth75'][indice] = cluth75
+space_param['cluth80'][indice] = cluth80
+space_param['cluth85'][indice] = cluth85
+space_param['cluth90'][indice] = cluth90
+space_param['cluth95'][indice] = cluth95
+space_param['cluth100'[indice]] = cluth100
 
 
 # Exibe mensagem indicando que o arquivo pickle está sendo salvo
