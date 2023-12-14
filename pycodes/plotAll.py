@@ -51,8 +51,8 @@ def plotAll(path):
     gop = data['GOP']
     lop = data['LOP_delta'][5]
 
-    ti = -210
-    tf = -110
+    ti = -201
+    tf = -101
 
     gop_sample = gop[ti:tf]
     lop_sample = lop[:,ti:tf]
@@ -122,14 +122,14 @@ def plotAll(path):
     ax[1][0].legend(loc='upper right')
 
 
-    raio = '$r = '+f'{neighbours/cellNumber:.2f}'.replace('.',',')+'$\n\n'
-    g = '$g_{ex}='+f'{gex:.3f} mS/cm^2'.replace('.',',')+'$\n\n'
-    i = '$I_{ext}='+f'{int(amp)}'+'$pA\n\n'
+    raio = '$r = '+f'{neighbours/cellNumber:.4f}'.replace('.',',')+'$\n\n'
+    g = '$g_{ex}='+f'{gex/10:.4f} mS/cm^2'.replace('.',',')+'$\n\n'
+    i = '$I_{ext}='+f'{amp:.2f}'+'$pA\n\n'
     fr = '$\overline{Fr} = '+f'{freq_mean:.1f}$'+'Hz\n\n'
     cv_mean = '$\overline{CV}='+f'{cv:.2f}'.replace('.',',')+'$\n\n' 
 
     infos = raio+g+i+fr+cv_mean
-    ax[1][1].annotate(infos, xy = (0,0), xytext=(0,-1), fontsize=10)
+    ax[1][1].annotate(infos.replace('.',','), xy = (0,0), xytext=(0,-1), fontsize=10)
     ax[1][1].yaxis.set_visible(False)
     ax[1][1].xaxis.set_visible(False)
     ax[1][1].spines['right'].set_visible(False)
@@ -156,15 +156,6 @@ def plotAll(path):
     plt.savefig(f'{file}.png', dpi=600, bbox_inches='tight', format='png')
 
     print('\n~~')
-
-
-# v = str(sys.argv[1])
-# i = str(sys.argv[2])
-# j = str(sys.argv[3])
-# folder = f'../figuresV2/'
-# file = f'../figuresV2/v{v}_batch1_{i}_{j}'
-
-# path = str(input('Path of file: '))
 
 folder = '../regioes_v3_batch1/'
 
