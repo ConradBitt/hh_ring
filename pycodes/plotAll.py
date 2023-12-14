@@ -43,10 +43,12 @@ def plotAll(path):
     amp = data['simConfig']['IClamp0']['amp'] * 1000
     neighbours = data['simConfig']['n_neighbors']
     freq_mean = data['freq_bar'].mean()
+    cv_n = data['cv']
     cv = data['cv'].mean()
     t_peaks = data['t_peaks']
     phases = data['phases']
     t_phase = data['t_phase']
+    Qs = data['Count_LOP_Under_Trh']
 
     gop = data['GOP']
     lop = data['LOP_delta'][5]
@@ -128,6 +130,7 @@ def plotAll(path):
     fr = '$\overline{Fr} = '+f'{freq_mean:.1f}$'+'Hz\n\n'
     cv_mean = '$\overline{CV}='+f'{cv:.2f}'.replace('.',',')+'$\n\n' 
 
+    
     infos = raio+g+i+fr+cv_mean
     ax[1][1].annotate(infos.replace('.',','), xy = (0,0), xytext=(0,-1), fontsize=10)
     ax[1][1].yaxis.set_visible(False)
@@ -137,6 +140,11 @@ def plotAll(path):
     ax[1][1].spines['top'].set_visible(False)
     ax[1][1].spines['bottom'].set_visible(False)
 
+    qlabel = ''
+    for s, q in Qs.items():
+        if s<1:
+            qlabel += '$'+f'Q({s:.2f})='+f'{int(q)}'.replace('.',',')+'$\n\n' 
+    ax[1][2].annotate(qlabel.replace('.',','), xy = (0,0), xytext=(0,-1), fontsize=10)
     ax[1][2].yaxis.set_visible(False)
     ax[1][2].xaxis.set_visible(False)
     ax[1][2].spines['right'].set_visible(False)
@@ -156,6 +164,15 @@ def plotAll(path):
     plt.savefig(f'{file}.png', dpi=600, bbox_inches='tight', format='png')
 
     print('\n~~')
+
+
+# v = str(sys.argv[1])
+# i = str(sys.argv[2])
+# j = str(sys.argv[3])
+# folder = f'../figuresV2/'
+# file = f'../figuresV2/v{v}_batch1_{i}_{j}'
+
+# path = str(input('Path of file: '))
 
 folder = '../regioes_v3_batch1/'
 
