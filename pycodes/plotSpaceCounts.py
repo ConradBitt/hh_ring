@@ -1,15 +1,20 @@
 import pickle
 import numpy as np
+import matplotlib
 from matplotlib import pyplot as plt
-import matplotlib.colors as mcolors
+# import matplotlib.colors as mcolors
 import matplotlib.ticker as plticker
-from matplotlib.colors import LinearSegmentedColormap, ListedColormap
 import locale
 import latex
-locale.setlocale(locale.LC_ALL, 'pt_BR.UTF-8')       
+# locale.setlocale(locale.LC_ALL, 'pt_BR.UTF-8')       
 
-cores = list(mcolors.TABLEAU_COLORS.keys())
-cores = [cor.split(':')[-1] for cor in cores]
+# from matplotlib.colors import ListedColormap,LinearSegmentedColormap
+# import matplotlib.cm
+# gnuplot = matplotlib.cm.get_cmap('gnuplot')
+# newcmp = ListedColormap(gnuplot(np.linspace(0.25, 0.75, 128)))
+
+# newcmp = ListedColormap(viridis(np.linspace(0.25, 0.75, 128)))
+
 
 def plot_params():
     plt.rc('text', usetex=True)
@@ -28,9 +33,10 @@ plot_params()
 
 
 v = 1
-file = f'space_param_v{v}_batch1'
+path = '../results_spaceparams/space_param_v2_batch1.pkl'
+file = path.split('/')[-1].split('.')[0]
 resol = 32
-with open(f'../results_spaceparams/{file}.pkl', 'rb') as f:
+with open(path, 'rb') as f:
     data_space_param = pickle.load(f)
 
 # cellNumber = data_space_param['infosNetWork']['cellNumber']
@@ -42,14 +48,22 @@ gex = data_space_param['gex']
 neighbours = data_space_param['neighbours']
 amp = data_space_param['amp']
 mean_LOP = data_space_param['mean_LOP']
-mean_GOP = data_space_param['mean_GOP']
-mean_cv = data_space_param['mean_cv']
-mean_freq = data_space_param['mean_freq']
+cluth75 = data_space_param['cluth75']
+cluth80 = data_space_param['cluth80']
+cluth85 = data_space_param['cluth85']
+cluth90 = data_space_param['cluth90']
+cluth95 = data_space_param['cluth95']
+cluth100 = data_space_param['cluth100']
+
 
 mean_LOP_arr = np.array(np.array_split(data_space_param['mean_LOP'], resol))
-mean_GOP_arr = np.array(np.array_split(data_space_param['mean_GOP'], resol))
-mean_cv_arr = np.array(np.array_split(data_space_param['mean_cv'],resol))
-mean_freq_arr = np.array(np.array_split(data_space_param['mean_freq'], resol))
+cluth75_arr = np.array(np.array_split(data_space_param['cluth75'], resol))
+cluth80_arr = np.array(np.array_split(data_space_param['cluth80'], resol))
+cluth85_arr = np.array(np.array_split(data_space_param['cluth85'], resol))
+cluth90_arr = np.array(np.array_split(data_space_param['cluth90'], resol))
+cluth95_arr = np.array(np.array_split(data_space_param['cluth95'], resol))
+cluth100_arr = np.array(np.array_split( data_space_param['cluth100'], resol))
+
 
 # axis
 axis_gex = np.array(list(set(gex)))#.astype(int)
@@ -64,51 +78,50 @@ print(mean_LOP_arr.shape)
 
 fig, ax = plt.subplots(ncols=2, nrows=2, figsize=(8,6))
 fig.set_tight_layout(20)
-# fig.suptitle('Rede de 256 neurônios, transiente 24s, amostra 1s,\n $g_{ex} = 250 \\mu S/cm²$')
 
-tg, ig = np.meshgrid(axis_neighbours[1:]/256, axis_gex[1:])
-# tg, ig = np.meshgrid(axis_amp[1:]*1000, axis_gex[1:])
+# tg, ig = np.meshgrid(axis_neighbours[1:]/256, axis_gex[1:])
+tg, ig = np.meshgrid(axis_amp[1:]*1000, axis_gex[1:])
 
-# ax[0][0].set_title('$\overline{GOP(t)}$')
 ax[0][0].set_title('(A)', loc='left',pad=10)
-hm00 = ax[0][0].pcolor(ig, tg, mean_GOP_arr, cmap='gnuplot')
+hm00 = ax[0][0].pcolor(ig, tg, cluth80_arr, cmap='gnuplot')
 cbar00 = fig.colorbar(hm00, ax=ax[0][0])#, cax=cax1, format=formater)
-cbar00.set_label(r'$\overline{GOP}$')
+cbar00.ax.set_title(r'$Q(0,80)$')
 
 # ax[0][1].set_title('$\overline{\overline{LOP}(t)}$')
 ax[0][1].set_title('(B)', loc='left',pad=10)
-hm01 = ax[0][1].pcolor(ig, tg, mean_LOP_arr, cmap='gnuplot')
+hm01 = ax[0][1].pcolor(ig, tg, cluth85_arr, cmap='gnuplot')
 cbar01 = fig.colorbar(hm01, ax=ax[0][1])#, cax=cax1, format=formater)
-cbar01.set_label(r'$\overline{LOP(t)}$')
+cbar01.ax.set_title(r'$Q(0,85)$')
 
 # ax[1][0].set_title('$\overline{Fr}$')
 ax[1][0].set_title('(C)', loc='left',pad=10)
-hm03 = ax[1][0].pcolor(ig, tg, mean_freq_arr, cmap='gnuplot')
+hm03 = ax[1][0].pcolor(ig, tg, cluth90_arr, cmap='gnuplot')
 cbar03 = fig.colorbar(hm03, ax=ax[1][0])#, cax=cax1, format=formater)
-cbar03.set_label(r'Fr (Hz)')
+cbar03.ax.set_title(r'$Q(0,90)$')
 
 # ax[1][1].set_title('$\overline{CV}$')
 ax[1][1].set_title('(D)',loc='left',pad=10)
-hm02 = ax[1][1].pcolor(ig, tg, mean_cv_arr, cmap='gnuplot')
+hm02 = ax[1][1].pcolor(ig, tg, cluth95_arr, cmap='gnuplot')
 cbar02 = fig.colorbar(hm02, ax=ax[1][1])#, cax=cax1, format=formater)
-cbar02.set_label(r'$CV$')
+cbar02.ax.set_title(r'$Q(0,95)$')
 
 step_y = plticker.MultipleLocator(base=0.05) # this locator puts ticks at regular intervals
 step_x = plticker.MultipleLocator(base=0.5e-4)
-for linha in ax:
-    for coluna in linha:
-        coluna.yaxis.set_major_locator(step_y)
-        coluna.xaxis.set_major_locator(step_x)
-        coluna.set_ylim(None,0.36)
-        coluna.set_xlim(None,4.e-4)
 
-# ax[0][0].set_ylabel('$I_{ext}$ ($pA$)')
-# ax[1][0].set_ylabel('$I_{ext}$ ($pA$)')
+# for linha in ax:
+#     for coluna in linha:
+#         coluna.yaxis.set_major_locator(step_y)
+#         coluna.xaxis.set_major_locator(step_x)
+#         coluna.set_ylim(None,0.36)
+#         coluna.set_xlim(None,4.e-4)
 
-ax[0][0].set_ylabel('$r$')
-ax[1][0].set_ylabel('$r$')
+ax[0][0].set_ylabel('$I_{ext}$ ($pA$)')
+ax[1][0].set_ylabel('$I_{ext}$ ($pA$)')
+
+# ax[0][0].set_ylabel('$r$')
+# ax[1][0].set_ylabel('$r$')
 ax[1][0].set_xlabel('$g_{ex}$ ($mS/cm²$)')
 ax[1][1].set_xlabel('$g_{ex}$ ($mS/cm²$)')
 
-plt.savefig(f'{file}.png', dpi=600, bbox_inches='tight', format='png')
+plt.savefig(f'{file}_counts.png', dpi=600, bbox_inches='tight', format='png')
 plt.show()

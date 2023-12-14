@@ -80,6 +80,6 @@ ax2.xaxis.set_visible(False)
 
 ax3 = fig.add_subplot(gs[1,1])
 cbar2 = plt.colorbar(hm2, cax=ax3, ticks=[0.96, 1])
-cbar2.set_label('LOP$(t)$')
+cbar2.ax.set_title('LOP$(t)$', fontsize=12, pad=10)
 
-plt.savefig('exemplo_lop_potencial.png', dpi=600, bbox_inches='tight', format='png')
+plt.savefig('plotPotencial.png', dpi=600, bbox_inches='tight', format='png')

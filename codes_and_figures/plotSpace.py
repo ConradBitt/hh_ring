@@ -26,11 +26,14 @@ def plot_params():
 plot_params()
 
 
+# path = str(input('Path of file: '))
+path = '../results_spaceparams/space_param_v2_batch1_2.pkl'
 
-v = 1
-file = f'space_param_v{v}_batch1'
+file = path.split('/')[-1]
+
+# file = f'space_param_v{v}_batch1'
 resol = 32
-with open(f'../results_spaceparams/{file}.pkl', 'rb') as f:
+with open(path, 'rb') as f:
     data_space_param = pickle.load(f)
 
 # cellNumber = data_space_param['infosNetWork']['cellNumber']
@@ -66,49 +69,83 @@ fig, ax = plt.subplots(ncols=2, nrows=2, figsize=(8,6))
 fig.set_tight_layout(20)
 # fig.suptitle('Rede de 256 neurônios, transiente 24s, amostra 1s,\n $g_{ex} = 250 \\mu S/cm²$')
 
-tg, ig = np.meshgrid(axis_neighbours[1:]/256, axis_gex[1:])
-# tg, ig = np.meshgrid(axis_amp[1:]*1000, axis_gex[1:])
+# tg, ig = np.meshgrid(axis_neighbours[1:]/256, axis_gex[1:]*1e3)
+tg, ig = np.meshgrid(axis_amp[1:]*1000, axis_gex[1:]*1e3)
 
 # ax[0][0].set_title('$\overline{GOP(t)}$')
 ax[0][0].set_title('(A)', loc='left',pad=10)
 hm00 = ax[0][0].pcolor(ig, tg, mean_GOP_arr, cmap='gnuplot')
 cbar00 = fig.colorbar(hm00, ax=ax[0][0])#, cax=cax1, format=formater)
-cbar00.set_label(r'$\overline{GOP}$')
+cbar00.ax.set_title(r'$\langle GOP \rangle$')
 
 # ax[0][1].set_title('$\overline{\overline{LOP}(t)}$')
 ax[0][1].set_title('(B)', loc='left',pad=10)
 hm01 = ax[0][1].pcolor(ig, tg, mean_LOP_arr, cmap='gnuplot')
 cbar01 = fig.colorbar(hm01, ax=ax[0][1])#, cax=cax1, format=formater)
-cbar01.set_label(r'$\overline{LOP(t)}$')
+cbar01.ax.set_title(r'$\langle LOP \rangle$')
 
 # ax[1][0].set_title('$\overline{Fr}$')
 ax[1][0].set_title('(C)', loc='left',pad=10)
 hm03 = ax[1][0].pcolor(ig, tg, mean_freq_arr, cmap='gnuplot')
 cbar03 = fig.colorbar(hm03, ax=ax[1][0])#, cax=cax1, format=formater)
-cbar03.set_label(r'Fr (Hz)')
+cbar03.ax.set_title(r'$\overline{Fr}$')
 
 # ax[1][1].set_title('$\overline{CV}$')
 ax[1][1].set_title('(D)',loc='left',pad=10)
 hm02 = ax[1][1].pcolor(ig, tg, mean_cv_arr, cmap='gnuplot')
 cbar02 = fig.colorbar(hm02, ax=ax[1][1])#, cax=cax1, format=formater)
-cbar02.set_label(r'$CV$')
+cbar02.ax.set_title(r'$\overline{CV}$')
 
-step_y = plticker.MultipleLocator(base=0.05) # this locator puts ticks at regular intervals
-step_x = plticker.MultipleLocator(base=0.5e-4)
+# step_y = plticker.MultipleLocator(base=0.05) # this locator puts ticks at regular intervals
+# step_x = plticker.MultipleLocator(base=0.05)
 for linha in ax:
     for coluna in linha:
-        coluna.yaxis.set_major_locator(step_y)
-        coluna.xaxis.set_major_locator(step_x)
-        coluna.set_ylim(None,0.36)
-        coluna.set_xlim(None,4.e-4)
+        # coluna.yaxis.set_major_locator(step_y)
+        # coluna.xaxis.set_major_locator(step_x)
+        # coluna.set_ylim(None,0.36)
+        coluna.set_xlim(1.e-1,4.e-1)
 
-# ax[0][0].set_ylabel('$I_{ext}$ ($pA$)')
-# ax[1][0].set_ylabel('$I_{ext}$ ($pA$)')
+ax[0][0].set_ylabel('$I_{ext}$ ($pA$)')
+ax[1][0].set_ylabel('$I_{ext}$ ($pA$)')
 
-ax[0][0].set_ylabel('$r$')
-ax[1][0].set_ylabel('$r$')
+# ax[0][0].set_ylabel('$r$')
+# ax[1][0].set_ylabel('$r$')
 ax[1][0].set_xlabel('$g_{ex}$ ($mS/cm²$)')
 ax[1][1].set_xlabel('$g_{ex}$ ($mS/cm²$)')
+
+
+# Anotações: v1 batch1
+# ax.annotate('(I)', xy=(xpos,ypox),  color='white', fontsize=24)
+# ax[0][0].annotate('(I)', xy=(1.25e-1,0.1),  color='black', fontsize=24)
+# ax[0][0].annotate('(II)', xy=(3e-1,0.25),   color='white', fontsize=24)
+# ax[0][0].annotate('(III)', xy=(1.89e-1,0.165),color='white', fontsize=14)
+# ax[0][0].annotate('(IV)', xy=(2.4e-1,0.19),  color='black', fontsize=14)
+# ax[0][0].annotate('(V)', xy=(2.4e-1,0.35),  color='black', fontsize=14)
+
+# ax[0][1].annotate('(I)', xy=(1.25e-1,0.1),  color='black', fontsize=24)
+# ax[0][1].annotate('(II)', xy=(3e-1,0.25),  color='black', fontsize=24)
+# ax[0][1].annotate('(III)', xy=(2.1e-1,0.15),  color='black', fontsize=14)
+# ax[0][1].annotate('(IV)', xy=(2.4e-1,0.19),  color='black', fontsize=14)
+
+# ax[1][0].annotate('(I)', xy=(1.25e-1,0.1), color='white', fontsize=24)
+# ax[1][0].annotate('(II)', xy=(3e-1,0.25),  color='black', fontsize=24)
+# ax[1][0].annotate('(III)', xy=(2.1e-1,0.15),color='white', fontsize=14)
+# ax[1][0].annotate('(IV)', xy=(2.4e-1,0.19),  color='white', fontsize=14)
+
+# ax[1][1].annotate('(I)', xy=(1.25e-1,0.1), color='white', fontsize=24)
+# ax[1][1].annotate('(II)', xy=(3e-1,0.25),  color='white', fontsize=24)
+# ax[1][1].annotate('(III)', xy=(2.1e-1,0.15),color='white', fontsize=14)
+# ax[1][1].annotate('(IV)', xy=(2.4e-1,0.19),  color='white', fontsize=14)
+
+# anotações v2 batch1
+ax[0][0].annotate('(I)', xy=(1.25e-1,160),  color='black', fontsize=24)
+ax[0][0].annotate('(II)', xy=(1.25e-1,190),  color='black', fontsize=24)
+ax[0][0].annotate('(III)', xy=(2.1e-1,190),  color='white', fontsize=24)
+ax[0][0].annotate('(IV)', xy=(3.25e-1,190),  color='white', fontsize=24)
+ax[0][0].annotate('(V)', xy=(3.35e-1,152),  color='black', fontsize=18)
+
+ax[0][0].annotate('(VI)', xy=(3.35e-1,170), color='white')
+
 
 plt.savefig(f'{file}.png', dpi=600, bbox_inches='tight', format='png')
 plt.show()
