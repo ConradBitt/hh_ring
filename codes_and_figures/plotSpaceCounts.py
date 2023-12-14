@@ -124,10 +124,20 @@ ax[1][0].set_xlabel('$g_{ex}$ ($mS/cm²$)')
 ax[1][1].set_xlabel('$g_{ex}$ ($mS/cm²$)')
 
 # Anotações v2_batch1
-# ax[0][0].annotate('(I)', xy=(1.25e-2,160),  color='white', fontsize=24)
-# ax[1][1].annotate('(II)', xy=(1.25e-2,190),  color='white', fontsize=24)
-# ax[0][1].annotate('(III)', xy=(3.25e-2,190),  color='black', fontsize=24)
-# ax[0][0].annotate('(V)', xy=(3.35e-1,152),  color='black', fontsize=18)
+ax[0][0].annotate('(I)', xy=(1.25e-2,160),  color='white', fontsize=24)
+ax[0][0].annotate('(II)', xy=(1.25e-2,190),  color='white', fontsize=24)
+ax[0][0].annotate('(III)', xy=(2.1e-2,190),  color='black', fontsize=24,
+                  bbox=dict(facecolor='white', boxstyle='round', alpha=0.6))
+ax[0][0].annotate('(IV)', xy=(3.25e-2,190),  color='black', fontsize=24)
+ax[0][0].annotate('(V)',
+             xytext=(3.e-2,175),           # Coordenadas do ponto de destino
+             xy=(3.7e-2,162),                # Coordenadas do texto de anotação
+             arrowprops=dict(arrowstyle='->', color='white'),  # Estilo da seta
+             fontsize=24,              # Tamanho da fonte
+             color='black',             # Cor do texto
+             )
+# ax[0][0].annotate('(VI)', xy=(3.35e-1,170), color='white')
+ax[0][0].annotate('(VI)', xy=(3.35e-2,152),  color='white', fontsize=18)
 
 plt.savefig(f'{file}_counts.png', dpi=600, bbox_inches='tight', format='png')
 plt.show()

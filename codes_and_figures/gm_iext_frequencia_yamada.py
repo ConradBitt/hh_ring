@@ -47,7 +47,7 @@ cbar00.ax.set_title(r'$Fr$ (Hz)', pad=10)
 
 hm01 = ax[1].pcolor(ig, tg, cvs, cmap='gnuplot2')
 cbar01 = fig.colorbar(hm01, ax=ax[1])#, cax=cax1, format=formater)
-cbar01.ax.set_title(r'$\overline{CV}$', pad=10)
+cbar01.ax.set_title(r'$CV$', pad=10)
 
 ax[0].set_title('(A)', loc='left', pad=20)
 ax[1].set_title('(B)', loc='left', pad=20)

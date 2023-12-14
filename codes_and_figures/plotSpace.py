@@ -69,8 +69,8 @@ fig, ax = plt.subplots(ncols=2, nrows=2, figsize=(8,6))
 fig.set_tight_layout(20)
 # fig.suptitle('Rede de 256 neurônios, transiente 24s, amostra 1s,\n $g_{ex} = 250 \\mu S/cm²$')
 
-# tg, ig = np.meshgrid(axis_neighbours[1:]/256, axis_gex[1:]*1e3)
-tg, ig = np.meshgrid(axis_amp[1:]*1000, axis_gex[1:]*1e3)
+# tg, ig = np.meshgrid(axis_neighbours[1:]/256, axis_gex[1:]*1e2)
+tg, ig = np.meshgrid(axis_amp[1:]*1000, axis_gex[1:]*1e2)
 
 # ax[0][0].set_title('$\overline{GOP(t)}$')
 ax[0][0].set_title('(A)', loc='left',pad=10)
@@ -100,10 +100,11 @@ cbar02.ax.set_title(r'$\overline{CV}$')
 # step_x = plticker.MultipleLocator(base=0.05)
 for linha in ax:
     for coluna in linha:
-        # coluna.yaxis.set_major_locator(step_y)
-        # coluna.xaxis.set_major_locator(step_x)
-        # coluna.set_ylim(None,0.36)
-        coluna.set_xlim(1.e-1,4.e-1)
+#         # coluna.yaxis.set_major_locator(step_y)
+#         # coluna.xaxis.set_major_locator(step_x)
+#         # coluna.set_ylim(None,0.36)
+        # coluna.set_ylim(0.05,0.4)
+        coluna.set_xlim(1.e-2,4.e-2)
 
 ax[0][0].set_ylabel('$I_{ext}$ ($pA$)')
 ax[1][0].set_ylabel('$I_{ext}$ ($pA$)')
@@ -116,11 +117,12 @@ ax[1][1].set_xlabel('$g_{ex}$ ($mS/cm²$)')
 
 # Anotações: v1 batch1
 # ax.annotate('(I)', xy=(xpos,ypox),  color='white', fontsize=24)
-# ax[0][0].annotate('(I)', xy=(1.25e-1,0.1),  color='black', fontsize=24)
-# ax[0][0].annotate('(II)', xy=(3e-1,0.25),   color='white', fontsize=24)
-# ax[0][0].annotate('(III)', xy=(1.89e-1,0.165),color='white', fontsize=14)
-# ax[0][0].annotate('(IV)', xy=(2.4e-1,0.19),  color='black', fontsize=14)
-# ax[0][0].annotate('(V)', xy=(2.4e-1,0.35),  color='black', fontsize=14)
+# ax[0][0].annotate('(I)', xy=(2.4e-2,0.35),  color='black', fontsize=14)
+# ax[0][0].annotate('(II)', xy=(3e-2,0.25),   color='white', fontsize=24)
+# ax[0][0].annotate('(III)', xy=(2.4e-2,0.19),  color='black', fontsize=14)
+# ax[0][0].annotate('(IV)', xy=(1.89e-2,0.165),color='white', fontsize=14)
+# ax[0][0].annotate('(V)', xy=(1.25e-2,0.1),  color='black', fontsize=24)
+
 
 # ax[0][1].annotate('(I)', xy=(1.25e-1,0.1),  color='black', fontsize=24)
 # ax[0][1].annotate('(II)', xy=(3e-1,0.25),  color='black', fontsize=24)
@@ -138,13 +140,20 @@ ax[1][1].set_xlabel('$g_{ex}$ ($mS/cm²$)')
 # ax[1][1].annotate('(IV)', xy=(2.4e-1,0.19),  color='white', fontsize=14)
 
 # anotações v2 batch1
-ax[0][0].annotate('(I)', xy=(1.25e-1,160),  color='black', fontsize=24)
-ax[0][0].annotate('(II)', xy=(1.25e-1,190),  color='black', fontsize=24)
-ax[0][0].annotate('(III)', xy=(2.1e-1,190),  color='white', fontsize=24)
-ax[0][0].annotate('(IV)', xy=(3.25e-1,190),  color='white', fontsize=24)
-ax[0][0].annotate('(V)', xy=(3.35e-1,152),  color='black', fontsize=18)
-
-ax[0][0].annotate('(VI)', xy=(3.35e-1,170), color='white')
+ax[0][0].annotate('(I)', xy=(1.25e-2,160),  color='black', fontsize=24)
+ax[0][0].annotate('(II)', xy=(1.25e-2,190),  color='black', fontsize=24)
+ax[0][0].annotate('(III)', xy=(2.1e-2,190),  color='white', fontsize=24)
+ax[0][0].annotate('(IV)', xy=(3.25e-2,190),  color='white', fontsize=24)
+ax[0][0].annotate('(V)',
+             xytext=(3.e-2,175),           # Coordenadas do ponto de destino
+             xy=(3.7e-2,162),                # Coordenadas do texto de anotação
+             arrowprops=dict(arrowstyle='->', color='white'),  # Estilo da seta
+             fontsize=24,              # Tamanho da fonte
+             color='white',             # Cor do texto
+            #  bbox=dict(facecolor='yellow', edgecolor='red', boxstyle='round'),  # Estilo do retângulo de fundo
+             )
+# ax[0][0].annotate('(VI)', xy=(3.35e-1,170), color='white')
+ax[0][0].annotate('(VI)', xy=(3.35e-2,152),  color='black', fontsize=18)
 
 
 plt.savefig(f'{file}.png', dpi=600, bbox_inches='tight', format='png')
