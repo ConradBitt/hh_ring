@@ -122,7 +122,7 @@ def plotAll(path):
     ax[1][0].legend(loc='upper right')
 
 
-    raio = '$r = '+f'{neighbours/cellNumber:.2f}'+'$\n\n'
+    raio = '$r = '+f'{neighbours/cellNumber:.2f}'.replace('.',',')+'$\n\n'
     g = '$g_{ex}='+f'{gex:.3f} mS/cm^2'.replace('.',',')+'$\n\n'
     i = '$I_{ext}='+f'{int(amp)}'+'$pA\n\n'
     fr = '$\overline{Fr} = '+f'{freq_mean:.1f}$'+'Hz\n\n'
@@ -166,27 +166,12 @@ def plotAll(path):
 
 # path = str(input('Path of file: '))
 
-folder = '../results/v2_batch1/'
+folder = '../regioes_v3_batch1/'
 
 caminhos = [
-    'v2_batch1_25_6_data_regiao_V_BursteChimera.pkl',
-    'v2_batch1_9_28_data_regiao_III_RSeChimera.pkl',
-    'v2_batch1_23_26_data_regiao_IV_RSeBustsHighFr.pkl',
-    'v2_batch1_2_7_data_regiao_I_RS.pkl','v2_batch1_9_29_data_regiao_III_RSeChimera.pkl',
-    'v2_batch1_24_1_data_regiao_V_Burst.pkl','v2_batch1_3_28_data_regiao_II_RSeBust.pkl','v2_batch1_25_5_data_regiao_V_BursteChimera.pkl',
-    'v2_batch1_9_27_data_regiao_III_RSeChimera.pkl'
+    'v3_batch1_17_23_data_regiao_V.pkl',
+    'v3_batch1_27_20_data_regiao_II.pkl'
 ]
-
-for p in caminhos:
-    plotAll(folder+p)
-
-folder = '../results/v3_batch1/'
-caminhos = [
-    'v3_batch1_11_13_data_regiao_III_burst.pkl','v3_batch1_2_7_data_regiao_I.pkl',
-    'v3_batch1_11_10_data_regiao_III_chimera.pkl','v3_batch1_11_9_data_regiao_III_RSeBust.pkl',
-    'v3_batch1_11_12_data_regiao_III_RS.pkl','v3_batch1_17_15_data_regiao_IV_burst.pkl'
-]
-
 
 for p in caminhos:
     plotAll(folder+p)
