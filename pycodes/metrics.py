@@ -166,7 +166,7 @@ def kuramoto_param_local_order(spatial_phase_arr, delta):
     return z
 
 @jit(nopython=True)
-def isi_cv_freq(tpeaks):
+def isi_cv_freq(tpeaks, ti=0,tf=-1):
     """
     Calcula o inter-spike-interval (ISI) de uma lista de tspikes.
 
@@ -184,9 +184,9 @@ def isi_cv_freq(tpeaks):
     cv = np.zeros(num_neurons)
     freq_bar = np.zeros(num_neurons)
     
-    for i in range(num_neurons):
+    for i in range(num_neurons):    
+        nspikes = tpeaks[i][(tpeaks[i] > ti) & (tpeaks[i] < tf)]
         isis = np.empty(len(tpeaks[i]) - 1, dtype=np.float64)
-        
         for j in range(len(tpeaks[i]) - 1):
             isis[j] = tpeaks[i][j + 1] - tpeaks[i][j]
 

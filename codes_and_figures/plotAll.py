@@ -25,6 +25,38 @@ def plot_params():
     plt.rcParams['pcolor.shading'] = 'nearest'
 plot_params()
 
+from numba import jit
+@jit(nopython=True)
+def isi_cv_freq(tpeaks, ti=0,tf=-1):
+    """
+    Calcula o inter-spike-interval (ISI) de uma lista de tspikes.
+
+    Args:
+        tpeaks (list of arrays): A lista contendo n-arrays com o tempo em que ocorre os spikes.
+
+    Returns:
+        tupla: uma tupla contendo as seguintes matrizes:
+             - isi_bar (numpy.ndarray): Matriz de ISIs médios para cada neurônio.
+             - cv (numpy.ndarray): Matriz de coeficiente de variação (CV) dos ISIs para cada neurônio.
+             - freq_bar (numpy.ndarray): Matriz de frequências médias de disparo (em Hz) para cada neurônio.
+    """
+    num_neurons = len(tpeaks)
+    isi_bar = np.zeros(num_neurons)
+    cv = np.zeros(num_neurons)
+    freq_bar = np.zeros(num_neurons)
+    
+    for i in range(num_neurons):    
+        nspikes = tpeaks[i][(tpeaks[i] > ti) & (tpeaks[i] < tf)]
+        isis = np.empty(len(tpeaks[i]) - 1, dtype=np.float64)
+        for j in range(len(tpeaks[i]) - 1):
+            isis[j] = tpeaks[i][j + 1] - tpeaks[i][j]
+
+        isi_bar[i] = np.mean(isis)
+        freq_bar[i] = (1 / isi_bar[i]) * 1e3  # Convert ISI to firing frequency (Hz)
+        cv[i] = np.std(isis) / isi_bar[i]
+    
+    return isi_bar, cv, freq_bar
+
 def plotAll(path):
     file = path.split('/')[-1].split('.')[0]
 
@@ -42,10 +74,12 @@ def plotAll(path):
     gex = data['simConfig']['gex']*1e3
     amp = data['simConfig']['IClamp0']['amp'] * 1000
     neighbours = data['simConfig']['n_neighbors']
-    freq_mean = data['freq_bar'].mean()
-    cv_n = data['cv']
-    cv = data['cv'].mean()
     t_peaks = data['t_peaks']
+    _, cv, freq = isi_cv_freq(t_peaks, ti=20000, tf=25000)
+
+    cv_bar = np.mean(cv)
+    freq_bar = np.mean(freq)
+
     phases = data['phases']
     t_phase = data['t_phase']
     Qs = data['Count_LOP_Under_Trh']
@@ -127,8 +161,8 @@ def plotAll(path):
     raio = '$r = '+f'{neighbours/cellNumber:.4f}'.replace('.',',')+'$\n\n'
     g = '$g_{ex}='+f'{gex/10:.4f} mS/cm^2'.replace('.',',')+'$\n\n'
     i = '$I_{ext}='+f'{amp:.2f}'+'$pA\n\n'
-    fr = '$\overline{Fr} = '+f'{freq_mean:.1f}$'+'Hz\n\n'
-    cv_mean = '$\overline{CV}='+f'{cv:.2f}'.replace('.',',')+'$\n\n' 
+    fr = '$\overline{Fr} = '+f'{freq_bar:.1f}$'+'Hz\n\n'
+    cv_mean = '$\overline{CV}='+f'{cv_bar:.2f}'.replace('.',',')+'$\n\n' 
 
     
     infos = raio+g+i+fr+cv_mean
