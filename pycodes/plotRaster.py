@@ -26,19 +26,17 @@ def plotRaster(t_peaks, t_phase):
     ax.spines['top'].set_visible(False)
     ax.set_ylabel('$n$-ésimo Neurônio')
     ax.set_xlabel('Tempo (s)')
-    ax.set_ylim(0, 256)
-    ax.set_yticks(list(range(0,256, 50)),)
+    # ax.set_yticks(list(range(0,256, 50)),)
+    ax.set_ylim(0, 20)
     ax.eventplot([event/1000 for event in t_peaks], color='black', linewidths=1,linestyles='-', zorder=3)
     ax.set_xlim(17, 20)
     # ax.set_xlim(min(t_phase), max(t_phase))
     # ax.xaxis.set_visible(False)
 
 
-    plt.savefig(file+'_RasterPlot.png', dpi=600, bbox_inches='tight', format='png')
+    plt.savefig('RasterPlot.png', dpi=600, bbox_inches='tight', format='png')
 
 plot_params()
-
-
 
 # v = str(sys.argv[1])
 # i = str(sys.argv[2])
@@ -53,6 +51,8 @@ print(f'Reading: "{file}"')
 
 with open(folder+file+'_data.pkl', 'rb') as f:
     data = pickle.load(f)
+
+
 
 cellNumber = data['simConfig']['cellNumber']
 gex = data['simConfig']['gex']

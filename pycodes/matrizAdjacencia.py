@@ -53,7 +53,7 @@ def get_matriz_Adjacência(n, p, numExtraConex = 0):
 
     return conex_smll
 
-rede = 51
+rede = 26
 p = 5
 
 nao_local = get_matriz_Adjacência(rede, p, 0)

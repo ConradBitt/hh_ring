@@ -42,7 +42,7 @@ fig, ax = plt.subplots(ncols=1, nrows=1, figsize=(12*cm, 10*cm))
 fig.set_tight_layout(20)
 
 
-tg, ig = np.meshgrid(i_exts*1000, chronaxie_percent_stimulus*100)
+tg, ig = np.meshgrid(i_exts*1000, chronaxie_percent_stimulus*1000)
 
 hm00 = ax.pcolor(ig, tg, frequencias, cmap='gnuplot2')
 cbar00 = fig.colorbar(hm00, ax=ax)#, cax=cax1, format=formater)
@@ -55,7 +55,7 @@ cbar00.ax.set_title(r'$Fr$ (Hz)')
 ax.set_title('(A)', loc='left', pad=20)
 # ax[1].set_title('(B)', loc='left', pad=20)
 
-ax.set_xlabel('Tempo de estímulo \n(\% do tempo de simulação em ms)', fontsize=14)
+ax.set_xlabel('Tempo de estímulo (ms)', fontsize=14)
 # ax[1].set_xlabel('Tempo de estímulo (\% do tempo de simulação)', fontsize=12)
 
 # vals0 = ax[0].get_xticks()
@@ -69,8 +69,8 @@ ax.set_xlabel('Tempo de estímulo \n(\% do tempo de simulação em ms)', fontsiz
 # ax[0].set_ylabel('$I_{ext}$ ($pA$)')
 ax.set_ylabel('$I_{ext}$ ($pA$)')
 
-ax.annotate('(I)', xy=(0,0), xytext=(20,100), color='white', fontsize=24)
-ax.annotate('(II)', xy=(0,0), xytext=(80,150), color='black', fontsize=24)
+ax.annotate('(I)', xy=(0,0), xytext=(200,100), color='white', fontsize=24)
+ax.annotate('(II)', xy=(0,0), xytext=(700,170), color='black', fontsize=24)
 
 
 plt.savefig('reobase_chronaxia.png', dpi=600, bbox_inches='tight', format='png')

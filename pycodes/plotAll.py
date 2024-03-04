@@ -97,13 +97,13 @@ def plotAll(t_peaks, last_phases, lop_sample, mean_lop, last_lop, t_phase, gop_s
 
     print('->'+f'../AnalysisV{v}_n{len(n)}_{gex}Scm2_{amp:.1f}pA_r{neighbours/cellNumber:.2f}neigh_{int(freq_mean)}Hz.png')
     # plt.savefig(folder+f'AnalysisV{v}_n{len(n)}_{gex}Scm2_{amp:.1f}pA_r{neighbours/cellNumber:.2f}neigh_{int(freq_mean)}Hz.png', dpi=600, bbox_inches='tight', format='png')
-    plt.savefig(folder+f'v{v}_batch1_{i}_{j}.png', dpi=600, bbox_inches='tight', format='png')
+    plt.savefig(folder+f'v{v}_batch1_{i}_{j}_teste.png', dpi=600, bbox_inches='tight', format='png')
 
 v = str(sys.argv[1])
 i = str(sys.argv[2])
 j = str(sys.argv[3])
-folder = f'../figuresV2/'
-file = f'../figuresV2/v{v}_batch1_{i}_{j}'
+folder = f'../figuresV1/'
+file = f'../figuresV1/v{v}_batch1_{i}_{j}'
 
 # file = f'../data/v{v}_batch{batch}/v{v}_batch{batch}_0_{subbatch}'
 # file = f'../data/v0_batch0/v0_batch0'
@@ -122,21 +122,21 @@ t_peaks = data['t_peaks']
 t_phase = data['t_phase']
 cv = data['cv']
 print(cv.shape)
-# gop = data['GOP']
-# lop = data['LOP_delta'][5]
+gop = data['GOP']
+lop = data['LOP_delta'][5]
 
-# gop_sample = gop[:]
-# lop_sample = lop[:, :]
+gop_sample = gop[:]
+lop_sample = lop[:, :]
 
-# mean_lop = lop_sample.mean(axis=1)
-# last_lop = lop_sample[:, -10]
+mean_lop = lop_sample.mean(axis=1)
+last_lop = lop_sample[:, -10]
 
-# last_phases = data['phases'][:, -10]
-# t_sample = t_phase[:]
+last_phases = data['phases'][:, -10]
+t_sample = t_phase[:]
 
-# print(gop.shape, lop.shape, mean_lop.shape, last_lop.shape)
+print(gop.shape, lop.shape, mean_lop.shape, last_lop.shape)
 
-# print(f'Plotting...')
-# plotAll(t_peaks, last_phases, lop_sample, mean_lop, last_lop, t_sample, gop_sample)
+print(f'Plotting...')
+plotAll(t_peaks, last_phases, lop_sample, mean_lop, last_lop, t_sample, gop_sample)
 
-# print('\n~~')
+print('\n~~')

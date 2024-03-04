@@ -90,7 +90,8 @@ ax1.set_title('(C)', loc='left')
 ax1.set_ylabel('Frequência (Hz)')
 ax1.set_xlabel('$I_{ext}$ ($p$A)')
 
-ax1.set_xlim(0,800)
+ax1.set_xlim(0,300)
+ax1.set_ylim(None,25)
 
 plt.savefig('dinamica_HH_Yamamada.png', dpi=600, bbox_inches='tight', format='png')
 

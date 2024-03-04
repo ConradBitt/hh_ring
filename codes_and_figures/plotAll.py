@@ -58,6 +58,7 @@ def isi_cv_freq(tpeaks, ti=0,tf=-1):
     return isi_bar, cv, freq_bar
 
 def plotAll(path):
+    print(path)
     file = path.split('/')[-1].split('.')[0]
 
     # file = f'space_param_v{v}_batch1'
@@ -195,9 +196,10 @@ def plotAll(path):
 
     print('->'+f'{file}')
     # plt.savefig(folder+f'AnalysisV{v}_n{len(n)}_{gex}Scm2_{amp:.1f}pA_r{neighbours/cellNumber:.2f}neigh_{int(freq_mean)}Hz.png', dpi=600, bbox_inches='tight', format='png')
-    plt.savefig(f'{file}.png', dpi=600, bbox_inches='tight', format='png')
+    plt.savefig(f'{file}_teste.png', dpi=600, bbox_inches='tight', format='png')
 
     print('\n~~')
+
 
 
 # v = str(sys.argv[1])
@@ -207,28 +209,30 @@ def plotAll(path):
 # file = f'../figuresV2/v{v}_batch1_{i}_{j}'
 
 # path = str(input('Path of file: '))
+path = '../results/v2_batch1/v2_batch1_2_7_data_regiao_I_RS.pkl'
+plotAll(path)
 
-folder = '../results/v2_batch1/'
+# folder = '../results/v2_batch1/'
 
-caminhos = [
-    'v2_batch1_25_6_data_regiao_V_BursteChimera.pkl',
-    'v2_batch1_9_28_data_regiao_III_RSeChimera.pkl',
-    'v2_batch1_23_26_data_regiao_IV_RSeBustsHighFr.pkl',
-    'v2_batch1_2_7_data_regiao_I_RS.pkl','v2_batch1_9_29_data_regiao_III_RSeChimera.pkl',
-    'v2_batch1_24_1_data_regiao_V_Burst.pkl','v2_batch1_3_28_data_regiao_II_RSeBust.pkl','v2_batch1_25_5_data_regiao_V_BursteChimera.pkl',
-    'v2_batch1_9_27_data_regiao_III_RSeChimera.pkl'
-]
+# caminhos = [
+#     'v2_batch1_25_6_data_regiao_V_BursteChimera.pkl',
+#     'v2_batch1_9_28_data_regiao_III_RSeChimera.pkl',
+#     'v2_batch1_23_26_data_regiao_IV_RSeBustsHighFr.pkl',
+#     'v2_batch1_2_7_data_regiao_I_RS.pkl','v2_batch1_9_29_data_regiao_III_RSeChimera.pkl',
+#     'v2_batch1_24_1_data_regiao_V_Burst.pkl','v2_batch1_3_28_data_regiao_II_RSeBust.pkl','v2_batch1_25_5_data_regiao_V_BursteChimera.pkl',
+#     'v2_batch1_9_27_data_regiao_III_RSeChimera.pkl'
+# ]
 
-for p in caminhos:
-    plotAll(folder+p)
+# for p in caminhos:
+#     plotAll(folder+p)
 
-folder = '../results/v3_batch1/'
-caminhos = [
-    'v3_batch1_11_13_data_regiao_III_burst.pkl','v3_batch1_2_7_data_regiao_I.pkl',
-    'v3_batch1_11_10_data_regiao_III_chimera.pkl','v3_batch1_11_9_data_regiao_III_RSeBust.pkl',
-    'v3_batch1_11_12_data_regiao_III_RS.pkl','v3_batch1_17_15_data_regiao_IV_burst.pkl'
-]
+# folder = '../results/v3_batch1/'
+# caminhos = [
+#     'v3_batch1_11_13_data_regiao_III_burst.pkl','v3_batch1_2_7_data_regiao_I.pkl',
+#     'v3_batch1_11_10_data_regiao_III_chimera.pkl','v3_batch1_11_9_data_regiao_III_RSeBust.pkl',
+#     'v3_batch1_11_12_data_regiao_III_RS.pkl','v3_batch1_17_15_data_regiao_IV_burst.pkl'
+# ]
 
 
-for p in caminhos:
-    plotAll(folder+p)
+# for p in caminhos:
+#     plotAll(folder+p)

@@ -30,11 +30,12 @@ import datetime
 # # file = f'../data/v{v}_{batch_number}/v{v}_{batch_number}_0'
 
 # Captura argumentos da linha de comando
-v = str(sys.argv[1])
-i = int(sys.argv[2])
-j = int(sys.argv[3])
+# v = str(sys.argv[1])
+# i = int(sys.argv[2])
+# j = int(sys.argv[3])
 
-file = f'../data/v{v}_batch1/v{v}_batch1_{i}_{j}'
+# file = f'../data/v{v}_batch1/v{v}_batch1_{i}_{j}'
+file = '../data/v0_batch1/v0_batch1'
 
 # file = f'../data/v1_batch0/v1_batch0'
 delta = 5
@@ -61,15 +62,15 @@ data['r'] = r
 print(f'Cell number: {cellNumber} \t n_neighbors: {n_neighbors} \t r: {r}')
 print(f"time simulation: {data['simConfig']['duration']}ms\n")
 
-ti = -1500
-tf = -500
+ti = -3100
+tf = -100
 print(f"\ntime sample metrics: {tf - ti}ms\n")
 
 spkid = data['simData']['spkid']
 spkt = data['simData']['spkt']
 
 print('~ Computing phase')
-_, t_range = metrics.calculate_t_range(spkinds = spkid, spkts = spkt, step=10)
+_, t_range = metrics.calculate_t_range(spkinds = spkid, spkts = spkt, step=5)
 t_phase, phases, spkmat = metrics.calculate_phases(_, t_range, ti=ti, tf=tf)
 
 data['t_phase'] = t_phase
